@@ -6,7 +6,7 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class LogInManagerTest {
+class AuthServiceTest {
     private final String INVALID_ID = Constants.INVALID_ID;
     private final String INVALID_PASSWORD = Constants.INVALID_PASSWORD;
     private final String VALID_ID = Constants.VALID_ID;
@@ -14,30 +14,31 @@ class LogInManagerTest {
 
     @Test
     void noAccountFound() throws FileNotFoundException {
-        LogInManager logInManager = new LogInManager();
-        Optional<Account> optionalAccount = logInManager.findBy(new String[]{INVALID_ID, INVALID_PASSWORD});
+        AuthService authService = new AuthService();
+        Optional<User> optionalAccount = authService.findBy(new String[]{INVALID_ID, INVALID_PASSWORD});
 
         assertEquals(true, optionalAccount.isEmpty());
     }
 
     @Test
     void accountFound() throws FileNotFoundException {
-        LogInManager logInManager = new LogInManager();
-        Optional<Account> optionalAccount = logInManager.findBy(new String[]{VALID_ID, VALID_PASSWORD});
+        AuthService authService = new AuthService();
+
+        Optional<User> optionalAccount = authService.findBy(new String[]{VALID_ID, VALID_PASSWORD});
 
         assertEquals(true, optionalAccount.isPresent());
     }
 
     @Test
     void validateAccount() throws FileNotFoundException {
-        LogInManager logInManager = new LogInManager();
+        AuthService authService = new AuthService();
 
-        Optional<Account> optionalAccount = logInManager.findBy(new String[]{VALID_ID, VALID_PASSWORD});
+        Optional<User> optionalAccount = authService.findBy(new String[]{VALID_ID, VALID_PASSWORD});
 
         String[] information = new String[]{VALID_ID, VALID_PASSWORD, "1000", "일반회원"};
 
-        Account account = new Account(information);
+        User user = new User(information);
 
-        assertEquals(optionalAccount.get(), account);
+        assertEquals(optionalAccount.get(), user);
     }
 }

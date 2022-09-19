@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="LogInManagerTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2022-09-19T05:08:23" hostname="KIMSUKTAEui-MacBookAir.local" time="0.014">
-  <properties/>
-  <testcase name="noAccountFound()" classname="LogInManagerTest" time="0.012"/>
-  <testcase name="validateAccount()" classname="LogInManagerTest" time="0.001"/>
-  <testcase name="accountFound()" classname="LogInManagerTest" time="0.0"/>
-  <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[]]></system-err>
-</testsuite>

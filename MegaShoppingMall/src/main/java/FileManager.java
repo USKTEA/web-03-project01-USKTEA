@@ -11,19 +11,25 @@ public class FileManager {
     }
 
 
-    public Optional<Account> findAccount(String[] data) throws FileNotFoundException {
+    public Optional<User> findAccount(String[] data) throws FileNotFoundException {
         Scanner scanner = new Scanner(file);
 
         String id = data[0];
         String password = data[1];
 
         while (scanner.hasNextLine()) {
-            String[] accountInformation = scanner.nextLine().split(",");
+            String information = scanner.nextLine();
+
+            if (information.equals("")) {
+                continue;
+            }
+
+            String[] accountInformation = information.split(",");
             String accountId = accountInformation[0];
             String accountPassword = accountInformation[1];
 
             if (id.equals(accountId) && password.equals(accountPassword)) {
-                return Optional.of(new Account(accountInformation));
+                return Optional.of(new User(accountInformation));
             }
         }
 

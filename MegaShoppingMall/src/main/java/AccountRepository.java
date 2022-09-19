@@ -8,7 +8,7 @@ public class AccountRepository {
         fileManager = new FileManager("accounts.csv");
     }
 
-    public Optional<Account> getAccount(String[] data) throws FileNotFoundException {
+    public Optional<User> getAccount(String[] data) throws FileNotFoundException {
         return fileManager.findAccount(data);
     }
 }

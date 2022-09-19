@@ -3,8 +3,8 @@
 import java.io.FileNotFoundException;
 import java.util.Optional;
 
-public class LogInManager {
-    public Optional<Account> findBy(String[] data) throws FileNotFoundException {
+public class AuthService {
+    public Optional<User> findBy(String[] data) throws FileNotFoundException {
         return new AccountRepository().getAccount(data);
     }
 }
