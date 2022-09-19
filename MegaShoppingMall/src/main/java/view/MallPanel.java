@@ -11,7 +11,7 @@ import java.awt.GridLayout;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MallPanel extends JPanel {
+public class MallPanel extends JPanel { // TODO session
     Mall mall;
     ViewController viewController;
     List<Product> products = new ArrayList<>();
