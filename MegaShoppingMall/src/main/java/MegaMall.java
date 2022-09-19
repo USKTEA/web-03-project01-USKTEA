@@ -1,4 +1,4 @@
-import view.ContentPanel;
+import view.MainPanel;
 
 import javax.swing.JFrame;
 
@@ -23,8 +23,8 @@ public class MegaMall {
     }
 
     private void addContentPanel() {
-        ContentPanel contentPanel = new ContentPanel();
-        frame.add(contentPanel);
+        MainPanel mainPanel = new MainPanel();
+        frame.add(mainPanel);
         frame.setVisible(false);
         frame.setVisible(true);
     }

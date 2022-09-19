@@ -1,3 +1,5 @@
+import models.Mall;
+import models.Product;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;

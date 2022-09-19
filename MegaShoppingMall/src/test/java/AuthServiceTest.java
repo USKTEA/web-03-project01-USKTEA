@@ -1,4 +1,6 @@
 import constants.Constants;
+import models.AuthService;
+import models.User;
 import org.junit.jupiter.api.Test;
 
 import java.io.FileNotFoundException;

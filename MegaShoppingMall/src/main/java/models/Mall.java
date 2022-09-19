@@ -1,3 +1,5 @@
+package models;
+
 import java.util.List;
 
 // TODO : 상품을 받아와서 화면에 보여줌

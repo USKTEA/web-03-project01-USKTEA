@@ -1,3 +1,5 @@
+package models;
+
 import java.util.Optional;
 
 public class Payment { //TODO order객체도 만들어서 보내야함 어디에? oderRepo

@@ -1,4 +1,7 @@
 import constants.Constants;
+import models.Product;
+import models.Receipt;
+import models.User;
 import org.junit.jupiter.api.Test;
 
 import java.util.Optional;

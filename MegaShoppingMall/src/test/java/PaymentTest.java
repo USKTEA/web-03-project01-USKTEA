@@ -1,3 +1,6 @@
+import models.Payment;
+import models.Product;
+import models.Receipt;
 import org.junit.jupiter.api.Test;
 
 import java.util.Optional;

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="AuthServiceTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2022-09-19T09:38:07" hostname="KIMSUKTAEui-MacBookAir.local" time="0.014">
+<testsuite name="AuthServiceTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2022-09-19T11:34:57" hostname="KIMSUKTAEui-MacBookAir.local" time="0.015">
   <properties/>
-  <testcase name="noAccountFound()" classname="AuthServiceTest" time="0.012"/>
-  <testcase name="validateAccount()" classname="AuthServiceTest" time="0.001"/>
+  <testcase name="noAccountFound()" classname="AuthServiceTest" time="0.013"/>
+  <testcase name="validateAccount()" classname="AuthServiceTest" time="0.0"/>
   <testcase name="accountFound()" classname="AuthServiceTest" time="0.0"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>

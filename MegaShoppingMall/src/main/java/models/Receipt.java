@@ -1,3 +1,7 @@
+package models;
+
+import models.Product;
+
 public class Receipt { //TODO id로 구매기록 확인하는 기능 추가?
     int id;
     String productName;

@@ -5,7 +5,47 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="50640c4e-9180-415e-bc46-eaebcb29cd67" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/view/MallPanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/7.4/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.4/executionHistory/executionHistory.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/7.4/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.4/executionHistory/executionHistory.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/7.4/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.4/fileHashes/fileHashes.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/7.4/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.4/fileHashes/fileHashes.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/7.4/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.4/fileHashes/resourceHashesCache.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/reports/tests/test/classes/AuthServiceTest.html" beforeDir="false" afterPath="$PROJECT_DIR$/build/reports/tests/test/classes/AuthServiceTest.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/reports/tests/test/classes/MallTest.html" beforeDir="false" afterPath="$PROJECT_DIR$/build/reports/tests/test/classes/MallTest.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/reports/tests/test/classes/PaymentTest.html" beforeDir="false" afterPath="$PROJECT_DIR$/build/reports/tests/test/classes/PaymentTest.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/reports/tests/test/classes/ProductTest.html" beforeDir="false" afterPath="$PROJECT_DIR$/build/reports/tests/test/classes/ProductTest.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/reports/tests/test/classes/ReceiptTest.html" beforeDir="false" afterPath="$PROJECT_DIR$/build/reports/tests/test/classes/ReceiptTest.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/reports/tests/test/classes/UserTest.html" beforeDir="false" afterPath="$PROJECT_DIR$/build/reports/tests/test/classes/UserTest.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/reports/tests/test/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/build/reports/tests/test/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/reports/tests/test/packages/default-package.html" beforeDir="false" afterPath="$PROJECT_DIR$/build/reports/tests/test/packages/default-package.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/test-results/test/TEST-AuthServiceTest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/build/test-results/test/TEST-AuthServiceTest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/test-results/test/TEST-MallTest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/build/test-results/test/TEST-MallTest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/test-results/test/TEST-PaymentTest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/build/test-results/test/TEST-PaymentTest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/test-results/test/TEST-ProductTest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/build/test-results/test/TEST-ProductTest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/test-results/test/TEST-ReceiptTest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/build/test-results/test/TEST-ReceiptTest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/test-results/test/TEST-UserTest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/build/test-results/test/TEST-UserTest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/test-results/test/binary/results.bin" beforeDir="false" afterPath="$PROJECT_DIR$/build/test-results/test/binary/results.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/tmp/compileJava/previous-compilation-data.bin" beforeDir="false" afterPath="$PROJECT_DIR$/build/tmp/compileJava/previous-compilation-data.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/tmp/compileTestJava/previous-compilation-data.bin" beforeDir="false" afterPath="$PROJECT_DIR$/build/tmp/compileTestJava/previous-compilation-data.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AccountRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/models/AccountRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AuthService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/models/AuthService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/FileManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/models/FileManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Mall.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/models/Mall.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/MegaMall.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/MegaMall.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Payment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/models/Payment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/models/Product.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Receipt.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/models/Receipt.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/models/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/view/ContentPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/view/MainPanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/AuthServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/AuthServiceTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/MallTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/MallTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/PaymentTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/PaymentTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ProductTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ProductTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ReceiptTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ReceiptTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/UserTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/UserTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -20,8 +60,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Class" />
         <option value="JUnit5 Test Class" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -37,18 +77,22 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary&quot;: &quot;JUnit5&quot;,
-    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5&quot;: &quot;&quot;,
-    &quot;last_directory_selection&quot;: &quot;/Users/kimsuktae/megaptera/web-03-project01-USKTEA/MegaShoppingMall/src/main/java&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
+    "last_directory_selection": "/Users/kimsuktae/megaptera/web-03-project01-USKTEA/MegaShoppingMall/src/main/java",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
+      <recent name="view" />
       <recent name="" />
     </key>
     <key name="CreateTestDialog.Recents.Supers">
@@ -63,7 +107,7 @@
       <recent name="" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.Run Test">
+  <component name="RunManager" selected="Application.MegaMall">
     <configuration name="MegaMall" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="MegaMall" />
       <module name="MegaShoppingMall.main" />

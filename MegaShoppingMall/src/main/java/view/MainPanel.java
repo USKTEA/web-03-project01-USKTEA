@@ -1,24 +1,30 @@
 package view;
 
+import models.ViewController;
+
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
 
-public class ContentPanel extends JPanel {
+public class MainPanel extends JPanel {
     JPanel buttonPanel;
+    JPanel contentPanel;
+    ViewController viewController;
 
-    ContentPanel() {
+    public MainPanel() {
         initContentPanel();
+        this.viewController = new ViewController();
     }
 
     private void initContentPanel() {
         this.setLayout(new BorderLayout());
 
-        JPanel mainPanel = new JPanel(new CardLayout());
-        this.add(mainPanel, BorderLayout.CENTER);
-        mainPanel.setBackground(Color.GRAY);
+        contentPanel = new JPanel();
+        this.add(contentPanel, BorderLayout.CENTER);
+
+        contentPanel.setBackground(Color.GRAY);
 
         addButtonPanel();
     }
@@ -32,6 +38,10 @@ public class ContentPanel extends JPanel {
 
         buttonPanel.add(login);
         buttonPanel.add(shop);
+        shop.addActionListener(event -> {
+            viewController.toShop(contentPanel);
+        });
+
         buttonPanel.add(review);
         buttonPanel.add(user);
 

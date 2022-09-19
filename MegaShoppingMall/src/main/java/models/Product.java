@@ -1,3 +1,5 @@
+package models;
+
 import java.util.Objects;
 
 public class Product {
@@ -9,7 +11,7 @@ public class Product {
         this.price = price;
     }
 
-    Product() {}
+    public Product() {}
 
     @Override
     public int hashCode() {
