@@ -5,8 +5,8 @@ import models.ViewController;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import java.awt.BorderLayout;
-import java.awt.CardLayout;
 import java.awt.Color;
+import java.awt.event.ActionListener;
 
 public class MainPanel extends JPanel {
     JPanel buttonPanel;
@@ -14,19 +14,23 @@ public class MainPanel extends JPanel {
     ViewController viewController;
 
     public MainPanel() {
-        initContentPanel();
         this.viewController = new ViewController();
+        this.setLayout(new BorderLayout());
+
+        initContentPanel();
+        addButtonPanel();
+        initLoginPanel();
     }
 
     private void initContentPanel() {
-        this.setLayout(new BorderLayout());
-
         contentPanel = new JPanel();
-        this.add(contentPanel, BorderLayout.CENTER);
-
         contentPanel.setBackground(Color.GRAY);
 
-        addButtonPanel();
+        this.add(contentPanel, BorderLayout.CENTER);
+    }
+
+    private void initLoginPanel() {
+        contentPanel.add(new LoginPanel(viewController));
     }
 
     private void addButtonPanel() {
@@ -37,9 +41,19 @@ public class MainPanel extends JPanel {
         JButton user = new JButton("내 정보");
 
         buttonPanel.add(login);
+        login.addActionListener(event -> {
+            contentPanel.removeAll();
+            contentPanel.add(new LoginPanel(viewController));
+            contentPanel.setVisible(false);
+            contentPanel.setVisible(true);
+        });
+
         buttonPanel.add(shop);
         shop.addActionListener(event -> {
-            viewController.toShop(contentPanel);
+            contentPanel.removeAll();
+            contentPanel.add(new MallPanel(viewController));
+            contentPanel.setVisible(false);
+            contentPanel.setVisible(true);
         });
 
         buttonPanel.add(review);

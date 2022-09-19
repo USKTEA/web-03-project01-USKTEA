@@ -41,6 +41,6 @@ class AuthServiceTest {
 
         User user = new User(information);
 
-        assertEquals(optionalAccount.get(), user);
+        assertEquals(user, optionalAccount.get());
     }
 }

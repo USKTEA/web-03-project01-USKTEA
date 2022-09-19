@@ -2,6 +2,7 @@ package view;
 
 import models.Mall;
 import models.Product;
+import models.ViewController;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -12,9 +13,11 @@ import java.util.List;
 
 public class MallPanel extends JPanel {
     Mall mall;
+    ViewController viewController;
     List<Product> products = new ArrayList<>();
 
-    public MallPanel() {
+    public MallPanel(ViewController viewController) {
+        this.viewController = viewController;
         this.mall = new Mall();
         addProduct();
         initMallPanel();
@@ -36,6 +39,9 @@ public class MallPanel extends JPanel {
             JLabel name = new JLabel(product.name());
             JLabel price = new JLabel("가격: " + product.price());
             JButton button = new JButton("구매");
+            button.addActionListener(event -> {
+                // product user에게 전달
+            });
 
             panel.add(name);
             panel.add(price);

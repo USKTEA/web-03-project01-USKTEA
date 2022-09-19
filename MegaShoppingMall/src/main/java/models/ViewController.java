@@ -1,17 +1,9 @@
 package models;
 
-import view.MallPanel;
-
-import javax.swing.JPanel;
-
 public class ViewController {
-    MallPanel mallPanel;
+    Session session = new Session();
 
-    public void toShop(JPanel contentPanel) {
-        contentPanel.removeAll();
-
-        contentPanel.add(new MallPanel());
-        contentPanel.setVisible(false);
-        contentPanel.setVisible(true);
+    public void setSession(User user) {
+        session.set(user);
     }
 }
