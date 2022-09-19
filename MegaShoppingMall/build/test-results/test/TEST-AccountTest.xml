@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="AccountTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2022-09-19T04:32:33" hostname="KIMSUKTAEui-MacBookAir.local" time="0.006">
+<testsuite name="AccountTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2022-09-19T05:08:23" hostname="KIMSUKTAEui-MacBookAir.local" time="0.005">
   <properties/>
-  <testcase name="creation()" classname="AccountTest" time="0.006"/>
+  <testcase name="string()" classname="AccountTest" time="0.004"/>
+  <testcase name="equality()" classname="AccountTest" time="0.0"/>
+  <testcase name="creation()" classname="AccountTest" time="0.0"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

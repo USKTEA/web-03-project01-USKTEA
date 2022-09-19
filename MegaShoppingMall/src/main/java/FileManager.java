@@ -19,8 +19,8 @@ public class FileManager {
 
         while (scanner.hasNextLine()) {
             String[] accountInformation = scanner.nextLine().split(",");
-            String accountId = accountInformation[1];
-            String accountPassword = accountInformation[2];
+            String accountId = accountInformation[0];
+            String accountPassword = accountInformation[1];
 
             if (id.equals(accountId) && password.equals(accountPassword)) {
                 return Optional.of(new Account(accountInformation));
