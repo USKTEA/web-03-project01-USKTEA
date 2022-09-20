@@ -8,16 +8,16 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 
 public class MainPanel extends JPanel {
-    JPanel buttonPanel;
-    JPanel contentPanel;
-    ViewController viewController;
+    private JPanel buttonPanel;
+    private JPanel contentPanel;
+    private ViewController viewController;
 
     public MainPanel() {
         this.viewController = new ViewController();
         this.setLayout(new BorderLayout());
 
         initContentPanel();
-        addButtonPanel();
+        initButtonPanel();
         initLoginPanel();
     }
 
@@ -32,26 +32,36 @@ public class MainPanel extends JPanel {
         contentPanel.add(new LoginPanel(viewController));
     }
 
-    private void addButtonPanel() {
+    private void initButtonPanel() {
         buttonPanel = new JPanel();
-
-        JButton review = new JButton("장바구니");
-        JButton user = new JButton("내 정보");
 
         addLoginButton();
         addShoppingButton();
-
-        buttonPanel.add(review);
-        buttonPanel.add(user);
+        addCartButton();
+        addOrderButton();
+        addInfoButton();
 
         this.add(buttonPanel, BorderLayout.SOUTH);
         this.setVisible(false);
         this.setVisible(true);
     }
 
+    private void addLoginButton() {
+        JButton login = new JButton("로그인");
+        buttonPanel.add(login);
+
+        login.addActionListener(event -> {
+            contentPanel.removeAll();
+            contentPanel.add(new LoginPanel(viewController));
+            contentPanel.setVisible(false);
+            contentPanel.setVisible(true);
+        });
+    }
+
     private void addShoppingButton() {
         JButton shop = new JButton("쇼핑몰");
         buttonPanel.add(shop);
+
         shop.addActionListener(event -> {
             contentPanel.removeAll();
             contentPanel.add(new MallPanel(viewController));
@@ -60,12 +70,37 @@ public class MainPanel extends JPanel {
         });
     }
 
-    private void addLoginButton() {
-        JButton login = new JButton("로그인");
-        buttonPanel.add(login);
-        login.addActionListener(event -> {
+    private void addCartButton() {
+        JButton cart = new JButton("장바구니");
+        buttonPanel.add(cart);
+
+        cart.addActionListener(event -> {
             contentPanel.removeAll();
-            contentPanel.add(new LoginPanel(viewController));
+            // contentPanel.add(new LoginPanel(viewController));
+            contentPanel.setVisible(false);
+            contentPanel.setVisible(true);
+        });
+    }
+
+    private void addOrderButton() {
+        JButton order = new JButton("주문확인");
+        buttonPanel.add(order);
+
+        order.addActionListener(event -> {
+            contentPanel.removeAll();
+           // contentPanel.add(new LoginPanel(viewController));
+            contentPanel.setVisible(false);
+            contentPanel.setVisible(true);
+        });
+    }
+
+    private void addInfoButton() {
+        JButton information = new JButton("내 정보");
+        buttonPanel.add(information);
+
+        information.addActionListener(event -> {
+            contentPanel.removeAll();
+            contentPanel.add(new userPanel(viewController));
             contentPanel.setVisible(false);
             contentPanel.setVisible(true);
         });

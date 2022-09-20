@@ -18,6 +18,7 @@ public class MegaMall {
 
     private void initFrame() {
         frame = new JFrame("MegaShoppingMall");
+        frame.setLocationRelativeTo(null);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setBounds(500, 800, 500, 800);
     }
