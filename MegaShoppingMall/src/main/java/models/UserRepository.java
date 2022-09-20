@@ -3,10 +3,11 @@ package models;
 import java.io.IOException;
 import java.util.Optional;
 
-public class AccountRepository {
+public class UserRepository {
     private FileManager fileManager;
+    private Session session = new Session();
 
-    AccountRepository() throws IOException {
+    public UserRepository() throws IOException {
         fileManager = new FileManager("accounts.csv");
     }
 
@@ -16,5 +17,13 @@ public class AccountRepository {
 
     public void modifyMoney(String id, int balance) throws IOException {
         fileManager.modifyMoney(id, balance);
+    }
+
+    public void setSession(User user) {
+        session.set(user);
+    }
+
+    public Optional<User> getSession() {
+        return session.getUser();
     }
 }

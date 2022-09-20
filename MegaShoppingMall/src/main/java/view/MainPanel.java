@@ -1,19 +1,22 @@
 package view;
 
-import models.ViewController;
+import controller.MallController;
+import controller.LoginController;
+import models.UserRepository;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.io.IOException;
 
 public class MainPanel extends JPanel {
     private JPanel buttonPanel;
     private JPanel contentPanel;
-    private ViewController viewController;
+    private UserRepository userRepository = new UserRepository();
+    private LoginController loginController;
 
-    public MainPanel() {
-        this.viewController = new ViewController();
+    public MainPanel() throws IOException {
         this.setLayout(new BorderLayout());
 
         initContentPanel();
@@ -29,7 +32,9 @@ public class MainPanel extends JPanel {
     }
 
     private void initLoginPanel() {
-        contentPanel.add(new LoginPanel(viewController));
+        loginController = new LoginController(userRepository);
+
+        contentPanel.add(new LoginPanel(loginController, userRepository));
     }
 
     private void initButtonPanel() {
@@ -52,7 +57,7 @@ public class MainPanel extends JPanel {
 
         login.addActionListener(event -> {
             contentPanel.removeAll();
-            contentPanel.add(new LoginPanel(viewController));
+            contentPanel.add(new LoginPanel(loginController, userRepository));
             contentPanel.setVisible(false);
             contentPanel.setVisible(true);
         });
@@ -64,7 +69,7 @@ public class MainPanel extends JPanel {
 
         shop.addActionListener(event -> {
             contentPanel.removeAll();
-            contentPanel.add(new MallPanel(viewController));
+            contentPanel.add(new MallPanel(new MallController(userRepository)));
             contentPanel.setVisible(false);
             contentPanel.setVisible(true);
         });
@@ -100,7 +105,7 @@ public class MainPanel extends JPanel {
 
         information.addActionListener(event -> {
             contentPanel.removeAll();
-            contentPanel.add(new userPanel(viewController));
+          //  contentPanel.add(new UserPanel(viewController));
             contentPanel.setVisible(false);
             contentPanel.setVisible(true);
         });

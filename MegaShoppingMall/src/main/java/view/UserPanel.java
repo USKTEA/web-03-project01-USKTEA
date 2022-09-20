@@ -1,18 +1,17 @@
 package view;
 
-import models.ViewController;
+import controller.UserPanelController;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import java.awt.BorderLayout;
-import java.awt.Component;
 import java.awt.GridLayout;
 
-public class userPanel extends JPanel {
-    private ViewController viewController;
+public class UserPanel extends JPanel {
+    private UserPanelController userPanelController;
 
-    public userPanel(ViewController viewController) {
-        this.viewController = viewController;
+    public UserPanel(UserPanelController userPanelController) {
+        this.userPanelController = userPanelController;
 
         initUserPanel();
     }
