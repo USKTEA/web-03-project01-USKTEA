@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.util.Optional;
 
 public class ViewController {
-    Session session = new Session();
+    private Session session = new Session();
 
     public void setSession(User user) {
         session.set(user);
@@ -43,8 +43,13 @@ public class ViewController {
         return receipt;
     }
 
-    public void sendReceipt(Receipt receipt) throws IOException {
+    public void paymentRequest(Receipt receipt) throws IOException {
         User user = session.getUser().get();
         user.pay(receipt);
+    }
+
+    public void storeReceipt(Receipt receipt) throws IOException {
+        User user = session.getUser().get();
+        user.storeReceipt(receipt);
     }
 }

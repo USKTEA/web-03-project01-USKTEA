@@ -8,9 +8,9 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 
 public class MainPanel extends JPanel {
-    JPanel buttonPanel;
-    JPanel contentPanel;
-    ViewController viewController;
+    private JPanel buttonPanel;
+    private JPanel contentPanel;
+    private ViewController viewController;
 
     public MainPanel() {
         this.viewController = new ViewController();

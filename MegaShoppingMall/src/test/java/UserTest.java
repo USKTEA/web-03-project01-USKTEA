@@ -4,8 +4,9 @@ import models.Receipt;
 import models.User;
 import org.junit.jupiter.api.Test;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -22,7 +23,7 @@ class UserTest {
     }
 
     @Test
-    void string() {
+    void string() throws IOException {
         String[] information = new String[]{"megaptera", "1234567890", "1000", "일반회원"};
 
         User user1 = new User(information);
@@ -31,7 +32,7 @@ class UserTest {
     }
 
     @Test
-    void equality() {
+    void equality() throws IOException {
         String[] information1 = new String[]{VALID_ID, "2312312312", "2000", "탈퇴한회원"};
         String[] information2 = new String[]{VALID_ID, "1234567890", "1000", "일반회원"};
 
@@ -59,5 +60,29 @@ class UserTest {
         user.pay(new Receipt(product));
 
         assertEquals(100 - 10, user.balance());
+    }
+
+    @Test
+    void setReceipts() {
+        User user = new User();
+        List<Receipt> receipts = new ArrayList<>();
+        user.setReceipts(receipts);
+
+        assertNotNull(user.getReceipts());
+    }
+
+    @Test
+    void storeReceipt() throws IOException {
+        User user = new User();
+        List<Receipt> receipts = new ArrayList<>();
+        user.setReceipts(receipts);
+
+        int receiptId = 1;
+        Receipt receipt = new Receipt(receiptId, new Product(), user.id());
+
+        user.storeReceipt(receipt);
+
+        System.out.println(user.getReceipts());
+        assertEquals(true, user.getReceipts().contains(receipt));
     }
 }

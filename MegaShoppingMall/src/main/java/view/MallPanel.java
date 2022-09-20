@@ -20,11 +20,11 @@ import java.util.List;
 import java.util.Optional;
 
 public class MallPanel extends JPanel { // TODO session
-    Mall mall;
-    ViewController viewController;
-    List<Product> products = new ArrayList<>();
+    private Mall mall;
+    private ViewController viewController;
+    private List<Product> products = new ArrayList<>();
 
-    JPanel header;
+    private JPanel header;
 
     public MallPanel(ViewController viewController) {
         this.viewController = viewController;
@@ -72,6 +72,7 @@ public class MallPanel extends JPanel { // TODO session
             JLabel name = new JLabel(product.name());
             JLabel price = new JLabel("가격: " + product.price());
             JButton button = new JButton("구매");
+
             button.addActionListener(event -> {
                 if (isGuest()) {
                     return;
@@ -130,7 +131,9 @@ public class MallPanel extends JPanel { // TODO session
             return;
         }
 
-        viewController.sendReceipt(receipt.get());
+        viewController.paymentRequest(receipt.get());
+        viewController.storeReceipt(receipt.get());
+
         updateHeader();
     }
 
