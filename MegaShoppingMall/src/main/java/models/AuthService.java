@@ -1,10 +1,10 @@
-package models;//TODO : findby로 받은 결과값으로 에러메세지 출력하거나 로그인 진행
+package models;
 
 import java.io.IOException;
 import java.util.Optional;
 
-public class AuthService {
-    public Optional<User> findBy(String[] data) throws IOException {
-        return new AccountRepository().getAccount(data);
+public class AuthService { //TODO : 유효성 검증만 어딘가에서 받은 데이터로
+    public Optional<User> findBy(String[] idAndPassword) throws IOException {
+        return new UserRepository().getAccount(idAndPassword);
     }
 }

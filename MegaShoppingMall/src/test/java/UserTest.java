@@ -61,27 +61,4 @@ class UserTest {
 
         assertEquals(100 - 10, user.balance());
     }
-
-    @Test
-    void setReceipts() {
-        User user = new User();
-        List<Receipt> receipts = new ArrayList<>();
-        user.setReceipts(receipts);
-
-        assertNotNull(user.getReceipts());
-    }
-
-    @Test
-    void storeReceipt() throws IOException {
-        User user = new User();
-        List<Receipt> receipts = new ArrayList<>();
-        user.setReceipts(receipts);
-
-        int receiptId = 1;
-        Receipt receipt = new Receipt(receiptId, new Product(), user.id());
-
-        user.storeReceipt(receipt);
-
-        assertEquals(true, user.getReceipts().contains(receipt));
-    }
 }

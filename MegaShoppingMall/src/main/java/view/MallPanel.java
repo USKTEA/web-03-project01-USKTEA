@@ -1,10 +1,10 @@
 package view;
 
+import controller.MallController;
 import models.Mall;
 import models.Product;
 import models.Receipt;
 import models.User;
-import models.ViewController;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -21,13 +21,13 @@ import java.util.Optional;
 
 public class MallPanel extends JPanel { // TODO session
     private Mall mall;
-    private ViewController viewController;
+    private MallController mallController;
     private List<Product> products = new ArrayList<>();
 
     private JPanel header;
 
-    public MallPanel(ViewController viewController) {
-        this.viewController = viewController;
+    public MallPanel(MallController mallController) {
+        this.mallController = mallController;
         this.mall = new Mall();
 
         addProduct();
@@ -50,7 +50,7 @@ public class MallPanel extends JPanel { // TODO session
     }
 
     private void addHeader() {
-        String[] userInformation = viewController.userInformation();
+        String[] userInformation = mallController.userInformation();
 
         header = new JPanel();
         header.setLayout(new GridLayout(0, 3));
@@ -96,7 +96,7 @@ public class MallPanel extends JPanel { // TODO session
     }
 
     private boolean isGuest() {
-        Optional<User> user = viewController.checkLogin();
+        Optional<User> user = mallController.getSession();
 
         if (user.isEmpty()) {
             final JDialog frame = new JDialog(new Frame(), "Error", true);
@@ -115,7 +115,7 @@ public class MallPanel extends JPanel { // TODO session
     }
 
     private void purchase(Product product) throws IOException {
-        Optional<Receipt> receipt = viewController.purchaseRequest(product);
+        Optional<Receipt> receipt = mallController.purchase(product);
 
         if (receipt.isEmpty()) {
             final JDialog frame = new JDialog(new Frame(), "Error", true);
@@ -131,14 +131,14 @@ public class MallPanel extends JPanel { // TODO session
             return;
         }
 
-        viewController.paymentRequest(receipt.get());
-        viewController.storeReceipt(receipt.get());
+        mallController.paymentRequest(receipt.get());
+        mallController.storeReceipt(receipt.get());
 
         updateHeader();
     }
 
     private void updateHeader() {
-        String[] userInformation = viewController.userInformation();
+        String[] userInformation = mallController.userInformation();
 
         header.removeAll();
         header.add(new JLabel("ID : " + userInformation[0]));
