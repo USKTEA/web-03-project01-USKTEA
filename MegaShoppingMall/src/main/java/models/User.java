@@ -1,5 +1,7 @@
 package models;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -18,11 +20,11 @@ public class User {
         this.grade = information[3];
     }
 
-    public User() {}
-
     public User(int balance) {
         this.balance = balance;
     }
+
+    public User() {}
 
     @Override
     public int hashCode() {
@@ -45,12 +47,18 @@ public class User {
         return new Payment().checkRequest(product, balance);
     }
 
-    public void pay(Receipt receipt) {
+    public String[] information() {
+        return new String[] {id, Integer.toString(balance), grade};
+    }
+
+    public void pay(Receipt receipt) throws IOException {
         balance -= receipt.amount();
+
+        System.out.println(balance);
+        new AccountRepository().modifyMoney(id, balance);
     }
 
     public int balance() {
         return balance;
     }
-
 }

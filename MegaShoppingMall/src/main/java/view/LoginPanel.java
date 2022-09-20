@@ -11,8 +11,8 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
-import java.io.FileNotFoundException;
 import java.util.Optional;
+import java.io.FileNotFoundException;
 
 public class LoginPanel extends JPanel { //TODO session 살아있으면 렌더링 안되게
     private ViewController viewController;
@@ -25,7 +25,6 @@ public class LoginPanel extends JPanel { //TODO session 살아있으면 렌더�
     public LoginPanel(ViewController viewController) {
         this.viewController = viewController;
         this.setLayout(new BorderLayout());
-
         initLoginPanel();
     }
 

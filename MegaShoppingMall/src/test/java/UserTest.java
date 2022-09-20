@@ -4,6 +4,8 @@ import models.Receipt;
 import models.User;
 import org.junit.jupiter.api.Test;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -48,7 +50,7 @@ class UserTest {
     }
 
     @Test
-    void billing() {
+    void billing() throws IOException {
         int money = 100;
         int price = 10;
 

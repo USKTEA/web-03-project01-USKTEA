@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="UserTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2022-09-19T11:34:57" hostname="KIMSUKTAEui-MacBookAir.local" time="0.004">
+<testsuite name="UserTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2022-09-20T05:48:12" hostname="KIMSUKTAEui-MacBookAir.local" time="0.006">
   <properties/>
   <testcase name="string()" classname="UserTest" time="0.003"/>
-  <testcase name="billing()" classname="UserTest" time="0.0"/>
+  <testcase name="billing()" classname="UserTest" time="0.001"/>
   <testcase name="purchaseRequest()" classname="UserTest" time="0.0"/>
   <testcase name="equality()" classname="UserTest" time="0.0"/>
   <testcase name="creation()" classname="UserTest" time="0.0"/>
-  <system-out><![CDATA[]]></system-out>
+  <system-out><![CDATA[megaptera
+]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>
