@@ -100,7 +100,7 @@ public class MainPanel extends JPanel {
 
         information.addActionListener(event -> {
             contentPanel.removeAll();
-            // contentPanel.add(new LoginPanel(viewController));
+            contentPanel.add(new userPanel(viewController));
             contentPanel.setVisible(false);
             contentPanel.setVisible(true);
         });

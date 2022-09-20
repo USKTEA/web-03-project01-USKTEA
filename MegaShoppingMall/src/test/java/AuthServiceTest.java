@@ -3,7 +3,6 @@ import models.AuthService;
 import models.User;
 import org.junit.jupiter.api.Test;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Optional;
 

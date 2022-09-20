@@ -22,4 +22,11 @@ class ReceiptTest {
 
         assertEquals(receipt1, receipt2);
     }
+
+    @Test
+    void information() {
+        Receipt receipt = new Receipt(1, "testProduct", "100", "testId");
+
+        assertArrayEquals(new String[] {"1", "testId", "testProduct", "100"}, receipt.information());
+    }
 }

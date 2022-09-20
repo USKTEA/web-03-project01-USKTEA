@@ -82,7 +82,6 @@ class UserTest {
 
         user.storeReceipt(receipt);
 
-        System.out.println(user.getReceipts());
         assertEquals(true, user.getReceipts().contains(receipt));
     }
 }
