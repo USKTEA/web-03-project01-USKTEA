@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="ReceiptTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2022-09-20T10:27:57" hostname="KIMSUKTAEui-MacBookAir.local" time="0.001">
-  <properties/>
-  <testcase name="string()" classname="ReceiptTest" time="0.0"/>
-  <testcase name="equality()" classname="ReceiptTest" time="0.001"/>
-  <testcase name="information()" classname="ReceiptTest" time="0.0"/>
-  <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[]]></system-err>
-</testsuite>
