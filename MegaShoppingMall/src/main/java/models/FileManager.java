@@ -12,14 +12,15 @@ public class FileManager {
     private File file;
     private Scanner scanner;
 
-    public FileManager(String filePath) throws IOException {
+    public FileManager(String filePath) {
         this.file = new File(filePath);
-        this.scanner = new Scanner(file);
     }
 
-    public Optional<User> findAccount(String[] data) throws IOException {
-        String id = data[0];
-        String password = data[1];
+    public Optional<User> findAccount(String[] idAndEmail) throws IOException {
+        scanner = new Scanner(file);
+
+        String id = idAndEmail[0];
+        String password = idAndEmail[1];
 
         while (scanner.hasNextLine()) {
             String information = scanner.nextLine();
@@ -42,9 +43,10 @@ public class FileManager {
 
     public void modifyMoney(String id, int balance) throws IOException {
         StringBuffer stringBuffer = new StringBuffer();
+        scanner = new Scanner(file);
 
         while (scanner.hasNextLine()) {
-            String[] information = scanner.nextLine().split(",");
+            String[] information = scanner.nextLine().split(",");;
 
             if (information[0].equals(id)) {
                 information[2] = Integer.toString(balance);
@@ -53,29 +55,30 @@ public class FileManager {
             stringBuffer.append(String.join(",", information) + "\n");
         }
 
+        System.out.println(stringBuffer);
         FileWriter fileWriter = new FileWriter(file);
         fileWriter.write(String.valueOf(stringBuffer));
         fileWriter.close();
     }
 
-    public void storeReceipt(Receipt receipt) throws IOException {
+    public void storeReceipt(Order order) throws IOException {
         FileWriter fileWriter = new FileWriter(file, true);
-        String[] information = receipt.information();
+        String[] information = order.information();
 
         fileWriter.write(information[0] + "," + information[1] + "," + information[2] + "," + information[3] + "\n");
         fileWriter.close();
     }
 
-    public List<Receipt> getReceipts() {
-        List<Receipt> receipts = new ArrayList<>();
+    public List<Order> getReceipts() {
+        List<Order> orders = new ArrayList<>();
 
         while (scanner.hasNextLine()) {
             String[] words = scanner.nextLine().split(",");
 
-            Receipt receipt = new Receipt(Long.parseLong(words[0]), words[1], words[2]);
-            receipts.add(receipt);
+            Order order = new Order(Long.parseLong(words[0]), words[1], words[2]);
+            orders.add(order);
         }
 
-        return receipts;
+        return orders;
     }
 }

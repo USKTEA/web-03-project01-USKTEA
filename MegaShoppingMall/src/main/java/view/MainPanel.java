@@ -3,6 +3,7 @@ package view;
 import controller.MallController;
 import controller.LoginController;
 import models.UserRepository;
+import service.UserService;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -11,10 +12,12 @@ import java.awt.Color;
 import java.io.IOException;
 
 public class MainPanel extends JPanel {
-    private JPanel buttonPanel;
-    private JPanel contentPanel;
     private UserRepository userRepository = new UserRepository();
     private LoginController loginController;
+    private UserService userService;
+
+    private JPanel buttonPanel;
+    private JPanel contentPanel;
 
     public MainPanel() throws IOException {
         this.setLayout(new BorderLayout());
@@ -32,9 +35,10 @@ public class MainPanel extends JPanel {
     }
 
     private void initLoginPanel() {
-        loginController = new LoginController(userRepository);
+        userService = new UserService(userRepository);
+        loginController = new LoginController(userService);
 
-        contentPanel.add(new LoginPanel(loginController, userRepository));
+        contentPanel.add(new LoginPanel(loginController, userService));
     }
 
     private void initButtonPanel() {
@@ -57,7 +61,7 @@ public class MainPanel extends JPanel {
 
         login.addActionListener(event -> {
             contentPanel.removeAll();
-            contentPanel.add(new LoginPanel(loginController, userRepository));
+            contentPanel.add(new LoginPanel(loginController, userService));
             contentPanel.setVisible(false);
             contentPanel.setVisible(true);
         });
@@ -69,7 +73,7 @@ public class MainPanel extends JPanel {
 
         shop.addActionListener(event -> {
             contentPanel.removeAll();
-            contentPanel.add(new MallPanel(new MallController(userRepository)));
+            contentPanel.add(new MallPanel(new MallController(userService)));
             contentPanel.setVisible(false);
             contentPanel.setVisible(true);
         });

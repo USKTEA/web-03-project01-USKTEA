@@ -3,7 +3,7 @@ package models;
 import java.util.Optional;
 
 public class Session {
-    private User sessionUser; //TODO seessionUser 있으면 로그인 유지, 로그아웃 구현해야함
+    private User sessionUser; //TODO sessionUser 있으면 로그인 유지, 로그아웃 구현해야함
 
     public void set(User user) {
         this.sessionUser = user;
@@ -17,5 +17,3 @@ public class Session {
         return Optional.of(sessionUser);
     }
 }
-
-//TODO 컨트롤러 분리!!!!! userRepository이용해서

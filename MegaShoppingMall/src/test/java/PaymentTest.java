@@ -1,6 +1,6 @@
 import models.Payment;
 import models.Product;
-import models.Receipt;
+import models.Order;
 import org.junit.jupiter.api.Test;
 
 import java.util.Optional;
@@ -13,7 +13,7 @@ class PaymentTest {
     void simpleCheckRequest() {
         Payment payment = new Payment();
 
-        Optional <Receipt> receipt = payment.checkRequest(new Product(), 0, "test");
+        Optional <Order> receipt = payment.purchase(new Product(), 0, "test");
 
         assertNotNull(receipt);
     }
@@ -24,7 +24,7 @@ class PaymentTest {
 
         int userBalance = 10;
 
-        Optional<Receipt> receipt = payment.checkRequest(new Product("테스트상품", 10), userBalance, "test");
+        Optional<Order> receipt = payment.purchase(new Product("테스트상품", 10), userBalance, "test");
 
         assertEquals("상품명: 테스트상품, 금액: 10원", receipt.get().toString());
     }
@@ -36,7 +36,7 @@ class PaymentTest {
         int userBalance = 10;
         int productPrice = 100;
 
-        Optional<Receipt> receipt = payment.checkRequest(new Product("테스트상품", productPrice), userBalance, "test");
+        Optional<Order> receipt = payment.purchase(new Product("테스트상품", productPrice), userBalance, "test");
 
         assertEquals(true, receipt.isEmpty());
     }

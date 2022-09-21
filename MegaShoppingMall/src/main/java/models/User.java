@@ -1,7 +1,6 @@
 package models;
 
 import java.io.IOException;
-import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -43,14 +42,8 @@ public class User {
         return "아이디: " + id + ", " + "비밀번호: " + password + ", " + "잔액: " + balance + ", " + "등급: " + grade;
     }
 
-    public Optional<Receipt> sendRequest(Product product) {
-        return new Payment().checkRequest(product, balance, id);
-    }
-
-    public void pay(Receipt receipt) throws IOException {
-        balance -= receipt.amount();
-
-        new UserRepository().modifyMoney(id, balance);
+    public void pay(Order order) {
+        balance -= order.amount();
     }
 
     public String[] information() {
