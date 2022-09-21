@@ -1,18 +1,17 @@
 import view.MainPanel;
 
 import javax.swing.JFrame;
-import java.io.IOException;
 
 public class MegaMall {
     private JFrame frame;
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         MegaMall application = new MegaMall();
         
         application.run();
     }
 
-    private void run() throws IOException {
+    private void run() {
         initFrame();
         addContentPanel();
     }
@@ -24,7 +23,7 @@ public class MegaMall {
         frame.setBounds(500, 800, 500, 800);
     }
 
-    private void addContentPanel() throws IOException {
+    private void addContentPanel() {
         MainPanel mainPanel = new MainPanel();
         frame.add(mainPanel);
         frame.setVisible(false);

@@ -1,13 +1,13 @@
 package controller;
 
-import service.PaymentService;
 import models.Product;
 import models.Order;
 import models.User;
+import service.PaymentService;
 import service.UserService;
 
-import java.io.IOException;
 import java.util.Optional;
+import java.io.IOException;
 
 public class MallController {
     private UserService userService;
@@ -27,25 +27,16 @@ public class MallController {
         return session.get().information();
     }
 
-    public Optional<Order> purchase(Product product) { // purchase // 서비스를 요청하자
+    public Optional<Order> purchase(Product product) throws IOException {
         user = session.get();
 
-        Optional<Order> bill = new PaymentService().purchase(user, product);
+        Optional<Order> order = new PaymentService().purchase(user, product);
 
-        if (bill.isEmpty()) {
+        if (order.isEmpty()) {
             return Optional.empty();
         }
 
-        return bill;
-    }
-
-    public void paymentRequest(Order order) throws IOException {
-        userService.purchase(user, order);
-    }
-
-    public void storeReceipt(Order order) throws IOException {
-
-    //    receiptService.storeReceipt(receipt);
+        return order;
     }
 
     public Optional<User> getSession() {

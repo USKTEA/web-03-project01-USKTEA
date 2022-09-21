@@ -1,4 +1,7 @@
-package models;
+package repository;
+
+import models.FileManager;
+import models.Order;
 
 import java.io.IOException;
 import java.util.List;
@@ -6,15 +9,15 @@ import java.util.List;
 public class OrderRepository {
     private FileManager fileManager;
 
-    OrderRepository() throws IOException {
+    OrderRepository() {
         fileManager = new FileManager("orders.csv");
     }
 
-    public void saveReceipt(Order order) throws IOException {
+    public void record(Order order) throws IOException {
         fileManager.storeReceipt(order);
     }
 
-    public List<Order> getReceipts() {
+    public List<Order> getOrders() {
         return fileManager.getReceipts();
     }
 }

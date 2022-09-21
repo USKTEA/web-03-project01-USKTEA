@@ -79,7 +79,6 @@ public class MallPanel extends JPanel { // TODO session
                 }
 
                 try {
-                    System.out.println(product);
                     purchase(product);
                 } catch (FileNotFoundException e) {
                     throw new RuntimeException(e);
@@ -131,9 +130,6 @@ public class MallPanel extends JPanel { // TODO session
 
             return;
         }
-
-        mallController.paymentRequest(order.get()); //billservice
-        mallController.storeReceipt(order.get());
 
         updateHeader();
     }
