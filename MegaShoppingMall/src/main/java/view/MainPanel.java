@@ -2,15 +2,21 @@ package view;
 
 import controller.MallController;
 import controller.LoginController;
+import controller.OrderHistoryController;
+import controller.Provider;
+import repository.OrderRepository;
 import repository.UserRepository;
+import service.OrderService;
 import service.UserService;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.io.FileNotFoundException;
 
 public class MainPanel extends JPanel {
+    private Provider provider = new Provider();
     private UserRepository userRepository = new UserRepository();
     private LoginController loginController;
     private UserService userService;
@@ -18,7 +24,7 @@ public class MainPanel extends JPanel {
     private JPanel buttonPanel;
     private JPanel contentPanel;
 
-    public MainPanel() {
+    public MainPanel() throws FileNotFoundException {
         this.setLayout(new BorderLayout());
 
         initContentPanel();
@@ -40,7 +46,7 @@ public class MainPanel extends JPanel {
         contentPanel.add(new LoginPanel(loginController, userService));
     }
 
-    private void initButtonPanel() {
+    private void initButtonPanel() throws FileNotFoundException {
         buttonPanel = new JPanel();
 
         addLoginButton();
@@ -90,13 +96,19 @@ public class MainPanel extends JPanel {
         });
     }
 
-    private void addOrderButton() {
-        JButton order = new JButton("주문확인");
+    private void addOrderButton() throws FileNotFoundException {
+        JButton order = new JButton("주문 확인");
         buttonPanel.add(order);
+
+        OrderService orderService = new OrderService(new OrderRepository(provider));
+        OrderHistoryController orderHistoryController = new OrderHistoryController(userService, orderService);
+        OrderHistory orderHistory = new OrderHistory(orderHistoryController);
+        provider.subscribe(orderHistory);
 
         order.addActionListener(event -> {
             contentPanel.removeAll();
-           // contentPanel.add(new LoginPanel(viewController));
+
+            contentPanel.add(orderHistory);
             contentPanel.setVisible(false);
             contentPanel.setVisible(true);
         });

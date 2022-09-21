@@ -15,32 +15,32 @@ class PaymentTest {
     void simpleCheckRequest() throws IOException {
         Payment payment = new Payment();
 
-        Optional <Order> receipt = payment.purchase(new Product(), new User());
+        Optional <Order> order = payment.purchase(new Product(), new User());
 
-        assertNotNull(receipt);
+        assertNotNull(order);
     }
 
     @Test
-    void requestSuccess() throws IOException {
+    void purchaseSuccess() throws IOException {
         Payment payment = new Payment();
 
         int userBalance = 10;
 
-        Optional<Order> receipt = payment.purchase(new Product("테스트상품", 10), new User(userBalance));
+        Optional<Order> order = payment.purchase(new Product("테스트상품", 10), new User(userBalance));
 
-        assertEquals("상품명: 테스트상품, 금액: 10원", receipt.get().toString());
+        assertEquals("상품명: 테스트상품, 금액: 10원", order.get().toString());
     }
 
     @Test
-    void requestFailed() throws IOException {
+    void purchaseFailed() throws IOException {
         Payment payment = new Payment();
 
         int userBalance = 10;
         int productPrice = 100;
 
-        Optional<Order> receipt = payment.purchase(new Product("테스트상품", productPrice), new User(userBalance));
+        Optional<Order> order = payment.purchase(new Product("테스트상품", productPrice), new User(userBalance));
 
-        assertEquals(true, receipt.isEmpty());
+        assertEquals(true, order.isEmpty());
     }
 
     @Test

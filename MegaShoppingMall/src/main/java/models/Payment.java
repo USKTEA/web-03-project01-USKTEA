@@ -21,13 +21,13 @@ public class Payment {
         return order;
     }
 
-    private void recordOrder(Order order) throws IOException {
-        OrderService orderService = new OrderService(new OrderRepository());
-        orderService.record(order);
-    }
-
     public void receivePayment(User user, Order order) throws IOException {
         UserService userService = new UserService(new UserRepository());
         userService.purchase(user, order);
+    }
+
+    private void recordOrder(Order order) throws IOException {
+        OrderService orderService = new OrderService(new OrderRepository());
+        orderService.record(order);
     }
 }
