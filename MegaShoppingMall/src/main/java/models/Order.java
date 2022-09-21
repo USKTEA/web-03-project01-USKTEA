@@ -40,8 +40,8 @@ public class Order { //TODO id로 구매기록 확인하는 기능 추가?
         this.productPrice = productPrice;
     }
 
-    public Order(int receiptId, Product product, String userId) {
-        this.id = receiptId;
+    public Order(int orderId, Product product, String userId) {
+        this.id = orderId;
         this.productName = product.name();
         this.productPrice = product.price();
         this.userId = userId;

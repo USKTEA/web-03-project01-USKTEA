@@ -2,7 +2,6 @@ package models;
 
 import java.io.IOException;
 import java.util.Objects;
-import java.util.Optional;
 
 // TODO : 유저는 상품을 구매하고, 장바구니에 넣을 수 있음, 리뷰를 수정할 수 있음
 
@@ -20,6 +19,11 @@ public class User {
     }
 
     public User(int balance) {
+        this.balance = balance;
+    }
+
+    public User(String id, int balance) {
+        this.id = id;
         this.balance = balance;
     }
 

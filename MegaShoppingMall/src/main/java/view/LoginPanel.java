@@ -4,7 +4,6 @@ import controller.MallController;
 import models.AuthService;
 import models.User;
 import controller.LoginController;
-import models.UserRepository;
 import service.UserService;
 
 import javax.swing.JButton;

@@ -2,14 +2,13 @@ package view;
 
 import controller.MallController;
 import controller.LoginController;
-import models.UserRepository;
+import repository.UserRepository;
 import service.UserService;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.io.IOException;
 
 public class MainPanel extends JPanel {
     private UserRepository userRepository = new UserRepository();
@@ -19,7 +18,7 @@ public class MainPanel extends JPanel {
     private JPanel buttonPanel;
     private JPanel contentPanel;
 
-    public MainPanel() throws IOException {
+    public MainPanel() {
         this.setLayout(new BorderLayout());
 
         initContentPanel();

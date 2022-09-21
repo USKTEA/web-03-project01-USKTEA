@@ -1,4 +1,8 @@
-package models;
+package repository;
+
+import models.FileManager;
+import models.Session;
+import models.User;
 
 import java.io.IOException;
 import java.util.Optional;
@@ -7,7 +11,7 @@ public class UserRepository {
     private FileManager fileManager;
     private Session session = new Session();
 
-    public UserRepository() throws IOException {
+    public UserRepository() {
         fileManager = new FileManager("accounts.csv");
     }
 

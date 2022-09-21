@@ -2,7 +2,7 @@ package service;
 
 import models.Order;
 import models.User;
-import models.UserRepository;
+import repository.UserRepository;
 
 import java.io.IOException;
 import java.util.Optional;

@@ -55,7 +55,6 @@ public class FileManager {
             stringBuffer.append(String.join(",", information) + "\n");
         }
 
-        System.out.println(stringBuffer);
         FileWriter fileWriter = new FileWriter(file);
         fileWriter.write(String.valueOf(stringBuffer));
         fileWriter.close();
