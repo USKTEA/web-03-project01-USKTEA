@@ -1,6 +1,6 @@
 package repository;
 
-import models.FileManager;
+import infrastructure.Infrastructure;
 import models.Session;
 import models.User;
 
@@ -8,19 +8,19 @@ import java.io.IOException;
 import java.util.Optional;
 
 public class UserRepository {
-    private FileManager fileManager;
+    private Infrastructure infrastructure;
     private Session session = new Session();
 
     public UserRepository() {
-        fileManager = new FileManager("accounts.csv");
+        infrastructure = new Infrastructure("accounts.csv");
     }
 
     public Optional<User> getAccount(String[] data) throws IOException {
-        return fileManager.findAccount(data);
+        return infrastructure.findAccount(data);
     }
 
     public void modifyMoney(String id, int balance) throws IOException {
-        fileManager.modifyMoney(id, balance);
+        infrastructure.modifyMoney(id, balance);
     }
 
     public void setSession(User user) {

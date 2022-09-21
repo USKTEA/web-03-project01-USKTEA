@@ -2,11 +2,12 @@ package models;
 
 import java.util.Objects;
 
-public class Order { //TODO id로 구매기록 확인하는 기능 추가?
+public class Order {
     private long id;
     private String productName;
     private String productPrice;
     private String userId;
+    private boolean delivered = false;
 
     public Order(Product product) {
         this.id = System.currentTimeMillis();
@@ -27,7 +28,7 @@ public class Order { //TODO id로 구매기록 확인하는 기능 추가?
         productPrice = product.price();
     }
 
-    public Order(long id, String productName, String productPrice, String userId) {
+    public Order(long id, String userId, String productName, String productPrice) {
         this.id = id;
         this.userId = userId;
         this.productName = productName;
@@ -40,11 +41,19 @@ public class Order { //TODO id로 구매기록 확인하는 기능 추가?
         this.productPrice = productPrice;
     }
 
-    public Order(int orderId, Product product, String userId) {
-        this.id = orderId;
+    public Order(long id, Product product, String userId) {
+        this.id = id;
         this.productName = product.name();
         this.productPrice = product.price();
         this.userId = userId;
+    }
+
+    public Order(long id, String userId, String productName, String productPrice, boolean delivered) {
+        this.id = id;
+        this.userId = userId;
+        this.productName = productName;
+        this.productPrice = productPrice;
+        this.delivered = delivered;
     }
 
     @Override
@@ -59,8 +68,16 @@ public class Order { //TODO id로 구매기록 확인하는 기능 추가?
         return Objects.equals(id, otherOrder.id());
     }
 
-    private long id() {
+    public long id() {
         return id;
+    }
+
+    public String productName() {
+        return productName;
+    }
+
+    public String productPrice() {
+        return productPrice;
     }
 
     public int amount() {
@@ -68,6 +85,14 @@ public class Order { //TODO id로 구매기록 확인하는 기능 추가?
     }
 
     public String[] information() {
-        return new String[] {Long.toString(id), userId, productName, productPrice};
+        return new String[] {Long.toString(id), userId, productName, productPrice, String.valueOf(delivered)};
+    }
+
+    public void setDelivered() {
+        this.delivered = true;
+    }
+
+    public boolean delivered() {
+        return delivered;
     }
 }

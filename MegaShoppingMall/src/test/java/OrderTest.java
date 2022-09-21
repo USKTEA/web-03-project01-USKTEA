@@ -25,8 +25,8 @@ class OrderTest {
 
     @Test
     void information() {
-        Order order = new Order(1, "testProduct", "100", "testId");
+        Order order = new Order(1, "testId", "testProduct", "100");
 
-        assertArrayEquals(new String[] {"1", "testId", "testProduct", "100"}, order.information());
+        assertArrayEquals(new String[] {"1", "testId", "testProduct", "100", "false"}, order.information());
     }
 }

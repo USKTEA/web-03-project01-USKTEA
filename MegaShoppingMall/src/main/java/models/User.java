@@ -46,12 +46,12 @@ public class User {
         return "아이디: " + id + ", " + "비밀번호: " + password + ", " + "잔액: " + balance + ", " + "등급: " + grade;
     }
 
-    public void pay(Order order) {
-        balance -= order.amount();
-    }
-
     public String[] information() {
         return new String[] {id, Integer.toString(balance), grade};
+    }
+
+    public void pay(Order order) {
+        balance -= order.amount();
     }
 
     public int balance() {

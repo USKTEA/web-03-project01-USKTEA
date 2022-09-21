@@ -3,7 +3,7 @@ package controller;
 import models.User;
 import service.UserService;
 
-public class LoginController {
+public class LoginController { // TODO : MVC 중개자로 수정?
     private UserService userService;
 
     public LoginController(UserService userService) {
