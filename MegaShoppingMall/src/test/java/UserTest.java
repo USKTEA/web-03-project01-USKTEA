@@ -1,12 +1,10 @@
 import constants.Constants;
 import models.Product;
-import models.Receipt;
+import models.Order;
 import models.User;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -43,21 +41,13 @@ class UserTest {
     }
 
     @Test
-    void purchaseRequest() {
-        User user = new User();
-        Optional<Receipt> receipt = user.sendRequest(new Product());
-
-        assertNotNull(receipt);
-    }
-
-    @Test
     void billing() throws IOException {
         int money = 100;
         int price = 10;
 
         User user = new User(money);
         Product product = new Product("테스트상품", price);
-        user.pay(new Receipt(product));
+        user.pay(new Order(product));
 
         assertEquals(100 - 10, user.balance());
     }

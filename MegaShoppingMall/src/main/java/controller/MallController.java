@@ -1,21 +1,22 @@
 package controller;
 
+import service.PaymentService;
 import models.Product;
-import models.Receipt;
+import models.Order;
 import models.User;
-import models.UserRepository;
+import service.UserService;
 
 import java.io.IOException;
 import java.util.Optional;
 
 public class MallController {
-    UserRepository userRepository;
-    Optional<User> session;
-    User user;
+    private UserService userService;
+    private Optional<User> session;
+    private User user;
 
-    public MallController(UserRepository userRepository) {
-        this.userRepository = userRepository;
-        this.session = userRepository.getSession();
+    public MallController(UserService userService) {
+        this.userService = userService;
+        this.session = userService.getSession();
     }
 
     public String[] userInformation() {
@@ -26,30 +27,28 @@ public class MallController {
         return session.get().information();
     }
 
-    public Optional<Receipt> purchase(Product product) { // purchase // 서비스를 요청하자
+    public Optional<Order> purchase(Product product) { // purchase // 서비스를 요청하자
         user = session.get();
 
-        Optional<Receipt> receipt = user.sendRequest(product);
+        Optional<Order> bill = new PaymentService().purchase(user, product);
 
-        if (receipt.isEmpty()) {
+        if (bill.isEmpty()) {
             return Optional.empty();
         }
 
-        return receipt;
+        return bill;
+    }
+
+    public void paymentRequest(Order order) throws IOException {
+        userService.purchase(user, order);
+    }
+
+    public void storeReceipt(Order order) throws IOException {
+
+    //    receiptService.storeReceipt(receipt);
     }
 
     public Optional<User> getSession() {
-        return userRepository.getSession();
-    }
-
-    public void paymentRequest(Receipt receipt) throws IOException {
-        user = session.get();
-        user.pay(receipt);
-    }
-
-    public void storeReceipt(Receipt receipt) throws IOException {
-        user = session.get();
-
-    //    receiptService.storeReceipt(receipt);
+        return session;
     }
 }

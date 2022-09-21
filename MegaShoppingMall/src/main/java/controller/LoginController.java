@@ -1,16 +1,16 @@
 package controller;
 
 import models.User;
-import models.UserRepository;
+import service.UserService;
 
 public class LoginController {
-    UserRepository userRepository;
+    private UserService userService;
 
-    public LoginController(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    public LoginController(UserService userService) {
+        this.userService = userService;
     }
 
     public void setSession(User user) {
-        userRepository.setSession(user);
+        userService.setSession(user);
     }
 }

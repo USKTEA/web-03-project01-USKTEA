@@ -5,6 +5,7 @@ import models.AuthService;
 import models.User;
 import controller.LoginController;
 import models.UserRepository;
+import service.UserService;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -19,16 +20,16 @@ import java.io.FileNotFoundException;
 
 public class LoginPanel extends JPanel { //TODO session 살아있으면 렌더링 안되게
     private LoginController loginController;
-    
+    private UserService userService;
+
     private JPanel form;
     private JLabel error;
     private JPasswordField passwordField;
     private JTextField idField;
-    private UserRepository userRepository;
 
-    public LoginPanel(LoginController loginController, UserRepository userRepository) {
+    public LoginPanel(LoginController loginController, UserService userService) {
         this.loginController = loginController;
-        this.userRepository = userRepository;
+        this.userService = userService;
         this.setLayout(new BorderLayout());
 
         initLoginPanel();
@@ -96,7 +97,7 @@ public class LoginPanel extends JPanel { //TODO session 살아있으면 렌더�
     }
 
     private void showMallPanel() {
-        MallController mallController = new MallController(userRepository);
+        MallController mallController = new MallController(userService);
         MallPanel mallPanel = new MallPanel(mallController);
 
         this.removeAll();

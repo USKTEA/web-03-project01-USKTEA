@@ -21,6 +21,5 @@ public class UserPanel extends JPanel {
         this.add(new JLabel("내 정보"), BorderLayout.PAGE_START);
 
         JPanel userInformationPanel = new JPanel(new GridLayout(0, 2));
-
     }
 }

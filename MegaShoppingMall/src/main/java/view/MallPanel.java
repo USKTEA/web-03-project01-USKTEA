@@ -3,7 +3,7 @@ package view;
 import controller.MallController;
 import models.Mall;
 import models.Product;
-import models.Receipt;
+import models.Order;
 import models.User;
 
 import javax.swing.JButton;
@@ -79,6 +79,7 @@ public class MallPanel extends JPanel { // TODO session
                 }
 
                 try {
+                    System.out.println(product);
                     purchase(product);
                 } catch (FileNotFoundException e) {
                     throw new RuntimeException(e);
@@ -115,9 +116,9 @@ public class MallPanel extends JPanel { // TODO session
     }
 
     private void purchase(Product product) throws IOException {
-        Optional<Receipt> receipt = mallController.purchase(product);
+        Optional<Order> order = mallController.purchase(product);
 
-        if (receipt.isEmpty()) {
+        if (order.isEmpty()) {
             final JDialog frame = new JDialog(new Frame(), "Error", true);
 
             JPanel error = new JPanel();
@@ -131,8 +132,8 @@ public class MallPanel extends JPanel { // TODO session
             return;
         }
 
-        mallController.paymentRequest(receipt.get());
-        mallController.storeReceipt(receipt.get());
+        mallController.paymentRequest(order.get()); //billservice
+        mallController.storeReceipt(order.get());
 
         updateHeader();
     }

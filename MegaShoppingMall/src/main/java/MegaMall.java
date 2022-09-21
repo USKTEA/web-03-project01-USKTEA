@@ -4,7 +4,7 @@ import javax.swing.JFrame;
 import java.io.IOException;
 
 public class MegaMall {
-    JFrame frame;
+    private JFrame frame;
 
     public static void main(String[] args) throws IOException {
         MegaMall application = new MegaMall();
