@@ -24,4 +24,8 @@ public class OrderHistoryController {
     public void setDelivered(Order order) throws IOException {
         orderService.setDelivered(order);
     }
+
+    public void deleteOrder(Order order) throws IOException {
+        orderService.deleteOrder(order);
+    }
 }
