@@ -35,9 +35,7 @@ public class OrderHistory extends JPanel implements Observer {
         updateDisplay(orderHistoryController.getOrderList());
     }
 
-    OrderHistory() {
-
-    }
+    OrderHistory() {}
 
     private void initHeader() {
         JLabel header = new JLabel("내 주문");
@@ -45,6 +43,68 @@ public class OrderHistory extends JPanel implements Observer {
         header.setHorizontalAlignment(JLabel.CENTER);
 
         this.add(header, BorderLayout.NORTH);
+    }
+
+    private void addOrderPanel(Order order, String timeInFormat) {
+        record = new JPanel();
+        record.setBorder(new EmptyBorder(10, 20, 10, 20));
+        record.setOpaque(false);
+
+        orderInformation = new JPanel(new GridLayout(0, 1));
+        orderInformation.add(new JLabel("주문 날짜: " + timeInFormat));
+
+        productInformation = new JPanel();
+        productInformation.add(new JLabel("상품명: " + order.productName()));
+        productInformation.add(new JLabel("상품 가격: " + order.productPrice()));
+
+        orderInformation.add(productInformation);
+        record.add(orderInformation, BorderLayout.CENTER);
+    }
+
+    private void addButtonPanel(JPanel recordPanel, Order order) {
+        buttonPanel = new JPanel(new GridLayout(0, 1));
+
+        addReceivedButton(order);
+
+        JButton cancel = new JButton("주문 취소");
+        cancel.addActionListener(event -> {
+            try {
+                orderHistoryController.deleteOrder(order);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
+
+        buttonPanel.add(cancel);
+
+        record.add(buttonPanel);
+        recordPanel.add(record);
+    }
+
+    private void addReceivedButton(Order order) {
+        JButton received = new JButton("주문 수령");
+        received.addActionListener(event -> {
+            try {
+                orderHistoryController.setDelivered(order);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
+
+        buttonPanel.add(received);
+    }
+
+    private void addScrollPane(JPanel recordPanel) {
+        JScrollPane scrollPane = new JScrollPane(recordPanel);
+        scrollPane.setPreferredSize(new Dimension(400 , 600));
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+
+        this.add(scrollPane, BorderLayout.CENTER);
+    }
+
+    private void update() {
+        this.setVisible(false);
+        this.setVisible(true);
     }
 
     @Override
@@ -72,60 +132,11 @@ public class OrderHistory extends JPanel implements Observer {
         update();
     }
 
-    private void addOrderPanel(Order order, String timeInFormat) {
-        record = new JPanel();
-        record.setBorder(new EmptyBorder(10, 20, 10, 20));
-        record.setOpaque(false);
-
-        orderInformation = new JPanel(new GridLayout(0, 1));
-        orderInformation.add(new JLabel("주문 날짜: " + timeInFormat));
-
-        productInformation = new JPanel();
-        productInformation.add(new JLabel("상품명: " + order.productName()));
-        productInformation.add(new JLabel("상품 가격: " + order.productPrice()));
-
-        orderInformation.add(productInformation);
-        record.add(orderInformation, BorderLayout.CENTER);
-    }
-
-    private void addButtonPanel(JPanel recordPanel, Order order) {
-        buttonPanel = new JPanel(new GridLayout(0, 1));
-
-        JButton received = new JButton("주문 수령");
-        received.addActionListener(event -> {
-            try {
-                orderHistoryController.setDelivered(order);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        });
-
-        JButton cancel = new JButton("주문 취소");
-        buttonPanel.add(received);
-        buttonPanel.add(cancel);
-
-        record.add(buttonPanel);
-        recordPanel.add(record);
-    }
-
-    private void addScrollPane(JPanel recordPanel) {
-        JScrollPane scrollPane = new JScrollPane(recordPanel);
-        scrollPane.setPreferredSize(new Dimension(400 , 600));
-        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-
-        this.add(scrollPane, BorderLayout.CENTER);
-    }
-
-    private void update() {
-        this.setVisible(false);
-        this.setVisible(true);
-    }
-
     @Override
     public int hashCode() {
         return 0;
     }
-    
+
     @Override
     public boolean equals(Object other) {
         OrderHistory otherOrderHistory = (OrderHistory) other;
