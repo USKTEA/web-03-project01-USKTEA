@@ -18,8 +18,10 @@ import javax.swing.JPanel;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Frame;
-import java.io.FileNotFoundException;
+
 import java.util.Optional;
+
+import java.io.FileNotFoundException;
 
 public class MainPanel extends JPanel {
     private Provider provider = new Provider();

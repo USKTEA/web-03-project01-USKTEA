@@ -4,8 +4,9 @@ import models.Order;
 import models.User;
 import repository.UserRepository;
 
-import java.io.IOException;
 import java.util.Optional;
+
+import java.io.IOException;
 
 public class UserService {
     private UserRepository userRepository;
