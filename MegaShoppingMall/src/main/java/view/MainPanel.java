@@ -102,11 +102,19 @@ public class MainPanel extends JPanel {
 
         OrderService orderService = new OrderService(new OrderRepository(provider));
         OrderHistoryController orderHistoryController = new OrderHistoryController(userService, orderService);
-        OrderHistory orderHistory = new OrderHistory(orderHistoryController);
-        provider.subscribe(orderHistory);
 
         order.addActionListener(event -> {
             contentPanel.removeAll();
+
+            OrderHistory orderHistory = null;
+
+            try {
+                orderHistory = new OrderHistory(orderHistoryController);
+            } catch (FileNotFoundException e) {
+                throw new RuntimeException(e);
+            }
+
+            provider.subscribe(orderHistory);
 
             contentPanel.add(orderHistory);
             contentPanel.setVisible(false);

@@ -10,6 +10,11 @@ public class Provider implements Observable {
 
     @Override
     public void subscribe(Observer observer) {
+        if (observerList.contains(observer)) {
+            observerList.remove(observer);
+            observerList.add(observer);
+        }
+
         observerList.add(observer);
     }
 

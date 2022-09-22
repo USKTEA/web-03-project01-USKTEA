@@ -35,6 +35,10 @@ public class OrderHistory extends JPanel implements Observer {
         updateDisplay(orderHistoryController.getOrderList());
     }
 
+    OrderHistory() {
+
+    }
+
     private void initHeader() {
         JLabel header = new JLabel("내 주문");
         header.setBorder(new EmptyBorder(10, 0, 10, 0));
@@ -52,7 +56,6 @@ public class OrderHistory extends JPanel implements Observer {
 
         for (Order order : orderList) {
             if (order.delivered() == true) {
-                System.out.println(order.delivered());
 
                 continue;
             }
@@ -116,5 +119,22 @@ public class OrderHistory extends JPanel implements Observer {
     private void update() {
         this.setVisible(false);
         this.setVisible(true);
+    }
+
+    @Override
+    public int hashCode() {
+        return 0;
+    }
+    
+    @Override
+    public boolean equals(Object other) {
+        OrderHistory otherOrderHistory = (OrderHistory) other;
+
+        return this.getClass().getSimpleName().equals(otherOrderHistory.getClass().getSimpleName());
+    }
+
+    @Override
+    public String toString() {
+        return this.getClass().getName();
     }
 }
