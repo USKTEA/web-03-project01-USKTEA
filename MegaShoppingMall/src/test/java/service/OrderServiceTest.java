@@ -1,3 +1,5 @@
+package service;
+
 import controller.Provider;
 import models.Order;
 import org.junit.jupiter.api.Test;

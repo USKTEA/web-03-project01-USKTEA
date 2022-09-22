@@ -1,6 +1,8 @@
 package infrastructure;
 
+import models.Cart;
 import models.Order;
+import models.Product;
 import models.User;
 
 import java.io.File;
@@ -142,5 +144,24 @@ public class Infrastructure {
         FileWriter fileWriter = new FileWriter(file);
         fileWriter.write(String.valueOf(stringBuffer));
         fileWriter.close();
+    }
+
+    public Cart getCart(User user) throws FileNotFoundException {
+        List<Product> productList = new ArrayList<>();
+        scanner = new Scanner(file);
+
+        while (scanner.hasNextLine()) {
+            String[] words = scanner.nextLine().split(",");
+
+            String productName = words[0];
+            int productPrice = Integer.parseInt(words[1]);
+            String userId = words[2];
+
+            if (user.id().equals(userId)) {
+                productList.add(new Product(productName, productPrice));
+            }
+        }
+
+        return new Cart(productList);
     }
 }

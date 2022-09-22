@@ -135,9 +135,10 @@ public class MallPanel extends JPanel { // TODO session
     }
 
     private void updateHeader() {
+        header.removeAll();
+
         String[] userInformation = mallController.userInformation();
 
-        header.removeAll();
         header.add(new JLabel("ID : " + userInformation[0]));
         header.add(new JLabel("보유 금액 : " + userInformation[1]));
         header.add(new JLabel("회원 등급 : " + userInformation[2]));

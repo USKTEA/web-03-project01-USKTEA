@@ -1,3 +1,5 @@
+package models;
+
 import models.Mall;
 import models.Product;
 import org.junit.jupiter.api.Test;

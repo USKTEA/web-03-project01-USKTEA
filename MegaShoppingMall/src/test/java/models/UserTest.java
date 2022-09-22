@@ -1,3 +1,5 @@
+package models;
+
 import constants.Constants;
 import models.Product;
 import models.Order;

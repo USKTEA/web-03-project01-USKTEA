@@ -21,28 +21,55 @@ import java.util.List;
 public class OrderHistory extends JPanel implements Observer {
     private OrderHistoryController orderHistoryController;
 
-    JPanel record;
-    JPanel orderInformation;
-    JPanel productInformation;
-    JPanel buttonPanel;
+    private JPanel record;
+    private JPanel orderInformation;
+    private JPanel productInformation;
+    private JPanel buttonPanel;
 
     OrderHistory(OrderHistoryController orderHistoryController) throws FileNotFoundException {
         this.orderHistoryController = orderHistoryController;
         this.setLayout(new BorderLayout());
         this.setOpaque(false);
 
-        initHeader();
         updateDisplay(orderHistoryController.getOrderList());
     }
 
     OrderHistory() {}
 
-    private void initHeader() {
-        JLabel header = new JLabel("내 주문");
-        header.setBorder(new EmptyBorder(10, 0, 10, 0));
-        header.setHorizontalAlignment(JLabel.CENTER);
+    private void addHeader() {
+        JPanel header = new JPanel();
+        JLabel label = new JLabel("내 주문");
+        header.add(label);
+        label.setBorder(new EmptyBorder(0, 30, 0, 30));
+        label.setHorizontalAlignment(JLabel.CENTER);
 
         this.add(header, BorderLayout.NORTH);
+    }
+
+    @Override
+    public void updateDisplay(List<Order> orderList) {
+        this.removeAll();
+
+        addHeader();
+        JPanel recordPanel = new JPanel(new GridLayout(0, 1));
+        recordPanel.setOpaque(false);
+
+        for (Order order : orderList) {
+            if (order.delivered() == true) {
+
+                continue;
+            }
+
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            Date timeInDate = new Date(order.id());
+            String timeInFormat = simpleDateFormat.format(timeInDate);
+
+            addOrderPanel(order, timeInFormat);
+            addButtonPanel(recordPanel, order);
+        }
+
+        addScrollPane(recordPanel);
+        update();
     }
 
     private void addOrderPanel(Order order, String timeInFormat) {
@@ -65,7 +92,13 @@ public class OrderHistory extends JPanel implements Observer {
         buttonPanel = new JPanel(new GridLayout(0, 1));
 
         addReceivedButton(order);
+        addCancelButton(order);
 
+        record.add(buttonPanel);
+        recordPanel.add(record);
+    }
+
+    private void addCancelButton(Order order) {
         JButton cancel = new JButton("주문 취소");
         cancel.addActionListener(event -> {
             try {
@@ -74,11 +107,7 @@ public class OrderHistory extends JPanel implements Observer {
                 throw new RuntimeException(e);
             }
         });
-
         buttonPanel.add(cancel);
-
-        record.add(buttonPanel);
-        recordPanel.add(record);
     }
 
     private void addReceivedButton(Order order) {
@@ -105,31 +134,6 @@ public class OrderHistory extends JPanel implements Observer {
     private void update() {
         this.setVisible(false);
         this.setVisible(true);
-    }
-
-    @Override
-    public void updateDisplay(List<Order> orderList) {
-        this.removeAll();
-
-        JPanel recordPanel = new JPanel(new GridLayout(0, 1));
-        recordPanel.setOpaque(false);
-
-        for (Order order : orderList) {
-            if (order.delivered() == true) {
-
-                continue;
-            }
-
-            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-            Date timeInDate = new Date(order.id());
-            String timeInFormat = simpleDateFormat.format(timeInDate);
-
-            addOrderPanel(order, timeInFormat);
-            addButtonPanel(recordPanel, order);
-        }
-
-        addScrollPane(recordPanel);
-        update();
     }
 
     @Override

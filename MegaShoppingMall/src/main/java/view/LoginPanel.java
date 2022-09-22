@@ -1,7 +1,7 @@
 package view;
 
 import controller.MallController;
-import models.AuthService;
+import service.AuthService;
 import models.User;
 import controller.LoginController;
 import service.UserService;
