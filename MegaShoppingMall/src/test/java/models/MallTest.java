@@ -1,7 +1,7 @@
 package models;
 
 import models.Mall;
-import models.Product;
+import models.CartItem;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class MallTest {
 
     @Test
-    void setProducts() {
+    void setCartItems() {
         Mall mall = new Mall();
         List<Product> mock = List.of(
                 new Product(),

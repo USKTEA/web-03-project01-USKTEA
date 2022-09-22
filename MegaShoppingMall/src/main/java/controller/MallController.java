@@ -1,7 +1,7 @@
 package controller;
 
-import models.Product;
 import models.Order;
+import models.Product;
 import models.User;
 import service.PaymentService;
 import service.UserService;
@@ -41,5 +41,11 @@ public class MallController {
 
     public Optional<User> getSession() {
         return session;
+    }
+
+    public void toCart(Product product) throws IOException {
+        user = session.get();
+
+        new CartController(user).add(product);
     }
 }

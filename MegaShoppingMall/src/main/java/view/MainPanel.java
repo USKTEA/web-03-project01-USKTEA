@@ -2,7 +2,7 @@ package view;
 
 import controller.MallController;
 import controller.LoginController;
-import controller.OrderHistoryController;
+import controller.OrderPanelController;
 import controller.Provider;
 import controller.CartController;
 import models.User;
@@ -32,7 +32,7 @@ public class MainPanel extends JPanel {
     private JPanel buttonPanel;
     private JPanel contentPanel;
 
-    public MainPanel() throws FileNotFoundException {
+    public MainPanel() {
         this.setLayout(new BorderLayout());
 
         initContentPanel();
@@ -54,7 +54,7 @@ public class MainPanel extends JPanel {
         contentPanel.add(new LoginPanel(loginController, userService));
     }
 
-    private void initButtonPanel() throws FileNotFoundException {
+    private void initButtonPanel() {
         buttonPanel = new JPanel();
 
         addLoginButton();
@@ -123,32 +123,33 @@ public class MainPanel extends JPanel {
             } catch (FileNotFoundException e) {
                 throw new RuntimeException(e);
             }
+
             contentPanel.setVisible(false);
             contentPanel.setVisible(true);
         });
     }
 
-    private void addOrderButton() throws FileNotFoundException {
+    private void addOrderButton() {
         JButton order = new JButton("주문 확인");
         buttonPanel.add(order);
-
-        OrderService orderService = new OrderService(new OrderRepository(provider));
-        OrderHistoryController orderHistoryController = new OrderHistoryController(orderService);
 
         order.addActionListener(event -> {
             contentPanel.removeAll();
 
-            OrderHistory orderHistory = null;
+            OrderPanel orderPanel = null;
 
             try {
-                orderHistory = new OrderHistory(orderHistoryController);
+                User user = userRepository.getSession().get();
+                OrderService orderService = new OrderService(new OrderRepository(provider));
+                OrderPanelController orderPanelController = new OrderPanelController(orderService, user);
+                orderPanel = new OrderPanel(orderPanelController);
             } catch (FileNotFoundException e) {
                 throw new RuntimeException(e);
             }
 
-            provider.subscribe(orderHistory);
+            provider.subscribe(orderPanel);
 
-            contentPanel.add(orderHistory);
+            contentPanel.add(orderPanel);
             contentPanel.setVisible(false);
             contentPanel.setVisible(true);
         });

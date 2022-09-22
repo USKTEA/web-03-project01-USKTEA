@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface Observable {
     void subscribe(Observer observer);
-    void notify(List<Order> orderList);
+    void notify(List<Order> orders);
 }

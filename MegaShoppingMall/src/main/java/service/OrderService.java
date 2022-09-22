@@ -1,5 +1,6 @@
 package service;
 
+import models.CartItem;
 import models.Order;
 import repository.OrderRepository;
 
@@ -15,6 +16,8 @@ public class OrderService {
         this.orderRepository = orderRepository;
     }
 
+    public OrderService() {}
+
     public void record(Order order) throws IOException {
         orderRepository.record(order);
     }
@@ -29,5 +32,9 @@ public class OrderService {
 
     public void deleteOrder(Order order) throws IOException {
         orderRepository.deleteOrder(order);
+    }
+
+    public void order(CartItem cartItem) throws IOException {
+        new OrderRepository().add(cartItem);
     }
 }

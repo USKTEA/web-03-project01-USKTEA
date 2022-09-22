@@ -54,6 +54,10 @@ public class User {
         balance -= order.amount();
     }
 
+    public void refund(Order order) {
+        balance += order.amount();
+    }
+
     public int balance() {
         return balance;
     }

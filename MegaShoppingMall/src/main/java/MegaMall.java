@@ -21,7 +21,7 @@ public class MegaMall {
         frame = new JFrame("MegaMall");
         frame.setLocationRelativeTo(null);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setBounds(500, 800, 500, 800);
+        frame.setBounds(550, 800, 550, 800);
     }
 
     private void addContentPanel() throws FileNotFoundException {

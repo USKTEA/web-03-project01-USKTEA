@@ -1,7 +1,5 @@
 package models;
 
-import models.Product;
-import models.Order;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
