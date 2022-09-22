@@ -25,4 +25,8 @@ public class OrderService {
     public void setDelivered(Order order) throws IOException {
         orderRepository.setDelivered(order);
     }
+
+    public void deleteOrder(Order order) throws IOException {
+        orderRepository.deleteOrder(order);
+    }
 }

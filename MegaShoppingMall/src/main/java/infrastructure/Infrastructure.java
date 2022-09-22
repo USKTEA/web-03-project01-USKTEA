@@ -123,4 +123,24 @@ public class Infrastructure {
         fileWriter.write(String.valueOf(stringBuffer));
         fileWriter.close();
     }
+
+    public void deleteOrder(Order order) throws IOException {
+        StringBuffer stringBuffer = new StringBuffer();
+        scanner = new Scanner(file);
+
+        while (scanner.hasNextLine()) {
+            String[] information = scanner.nextLine().split(",");;
+            String id = Long.toString(order.id());
+
+            if (information[0].equals(id)) {
+                continue;
+            }
+
+            stringBuffer.append(String.join(",", information) + "\n");
+        }
+
+        FileWriter fileWriter = new FileWriter(file);
+        fileWriter.write(String.valueOf(stringBuffer));
+        fileWriter.close();
+    }
 }

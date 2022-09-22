@@ -51,4 +51,11 @@ public class OrderRepository {
         infrastructure.setDelivered(delivered);
         provider.notify(orderList);
     }
+
+    public void deleteOrder(Order order) throws IOException {
+        orderList.remove(order);
+
+        infrastructure.deleteOrder(order);
+        provider.notify(orderList);
+    }
 }
