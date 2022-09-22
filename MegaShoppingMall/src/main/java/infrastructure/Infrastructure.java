@@ -95,7 +95,7 @@ public class Infrastructure {
             String userId = words[1];
             String productName = words[2];
             String productPrice = words[3];
-            boolean delivered = Boolean.getBoolean(words[4]);
+            boolean delivered = Boolean.valueOf(words[4]);
 
             Order order = new Order(id, userId, productName, productPrice, delivered);
             orders.add(order);
