@@ -1,9 +1,5 @@
 package models;
 
-import models.Payment;
-import models.Product;
-import models.Order;
-import models.User;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;

@@ -11,21 +11,21 @@ public class Order {
 
     public Order(Product product) {
         this.id = System.currentTimeMillis();
-        productName = product.name();
-        productPrice = product.price();
+        this.productName = product.name();
+        this.productPrice = product.price();
     }
 
     public Order(Product product, String userId) {
         this.id = System.currentTimeMillis();
         this.userId = userId;
-        productName = product.name();
-        productPrice = product.price();
+        this.productName = product.name();
+        this.productPrice = product.price();
     }
 
     public Order(long id, Product product) {
         this.id = id;
-        productName = product.name();
-        productPrice = product.price();
+        this.productName = product.name();
+        this.productPrice = product.price();
     }
 
     public Order(long id, String userId, String productName, String productPrice) {
@@ -76,7 +76,7 @@ public class Order {
         return productName;
     }
 
-    public String productPrice() {
+    public String price() {
         return productPrice;
     }
 

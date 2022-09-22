@@ -1,6 +1,7 @@
 package infrastructure;
 
 import models.Cart;
+import models.CartItem;
 import models.Order;
 import models.Product;
 import models.User;
@@ -147,21 +148,73 @@ public class Infrastructure {
     }
 
     public Cart getCart(User user) throws FileNotFoundException {
-        List<Product> productList = new ArrayList<>();
+        List<CartItem> items = new ArrayList<>();
         scanner = new Scanner(file);
 
         while (scanner.hasNextLine()) {
-            String[] words = scanner.nextLine().split(",");
+            String text = scanner.nextLine();
 
-            String productName = words[0];
-            int productPrice = Integer.parseInt(words[1]);
-            String userId = words[2];
+            if (text.equals("")) {
+                continue;
+            }
+
+            String[] words = text.split(",");
+
+            String cartItemId = words[0];
+            String name = words[1];
+            String price = words[2];
+            String userId = words[3];
 
             if (user.id().equals(userId)) {
-                productList.add(new Product(productName, productPrice));
+                items.add(new CartItem(cartItemId, name, price, userId));
             }
         }
 
-        return new Cart(productList);
+        return new Cart(items);
+    }
+
+    public void addItemToCart(Product product, User user) throws IOException {
+        FileWriter fileWriter = new FileWriter(file, true);
+
+        long id = System.currentTimeMillis();
+        String name = product.name();
+        String price = product.price();
+        String userId = user.id();
+
+        fileWriter.write(id + "," + name + "," + price + "," + userId + "\n");
+        fileWriter.close();
+    }
+
+    public void deleteItemFromCart(CartItem cartItem, User user) throws IOException {
+        StringBuffer stringBuffer = new StringBuffer();
+        scanner = new Scanner(file);
+
+        while (scanner.hasNextLine()) {
+            String[] information = scanner.nextLine().split(",");;
+            String id = information[0];
+
+            if (id.equals(Long.toString(cartItem.id()))) {
+                continue;
+            }
+
+            stringBuffer.append(String.join(",", information) + "\n");
+        }
+
+        FileWriter fileWriter = new FileWriter(file);
+        fileWriter.write(String.valueOf(stringBuffer));
+        fileWriter.close();
+    }
+
+    public void cartItemToOrder(CartItem cartItem) throws IOException {
+        FileWriter fileWriter = new FileWriter(file, true);
+
+        String id = Long.toString(cartItem.id());
+        String userId = cartItem.userId();
+        String productName = cartItem.name();
+        String productPrice = cartItem.price();
+        String delivered = "false";
+
+        fileWriter.write(id + "," + userId + "," + productName + "," + productPrice + "," + delivered + "\n");
+        fileWriter.close();
     }
 }

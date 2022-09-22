@@ -2,15 +2,18 @@ package view;
 
 import controller.MallController;
 import models.Mall;
-import models.Product;
+import models.CartItem;
 import models.Order;
+import models.Product;
 import models.User;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
 import java.awt.BorderLayout;
+import java.awt.Button;
 import java.awt.Frame;
 import java.awt.GridLayout;
 
@@ -32,11 +35,11 @@ public class MallPanel extends JPanel { // TODO session
         this.mallController = mallController;
         this.mall = new Mall();
 
-        addProduct();
+        addProducts();
         initMallPanel();
     }
 
-    private void addProduct() { // 임시데이터
+    private void addProducts() { // 임시데이터
         for (int i = 0; i < 12; i += 1) {
             products.add(new Product("상품", 100));
         }
@@ -48,7 +51,7 @@ public class MallPanel extends JPanel { // TODO session
         this.setLayout(new BorderLayout());
 
         addHeader();
-        addProductPanel();
+        addCartItemPanel();
     }
 
     private void addHeader() {
@@ -59,42 +62,60 @@ public class MallPanel extends JPanel { // TODO session
         header.add(new JLabel("ID : " + userInformation[0]));
         header.add(new JLabel("보유 금액 : " + userInformation[1]));
         header.add(new JLabel("회원 등급 : " + userInformation[2]));
+        header.setBorder(new EmptyBorder(10, 10 ,10 ,10));
 
-        this.add(header, BorderLayout.PAGE_START);
+        this.add(header, BorderLayout.NORTH);
     }
 
-    private void addProductPanel() {
-        JPanel productPanel = new JPanel();
-        productPanel.setLayout(new GridLayout(0, 2));
+    private void addCartItemPanel() {
+        JPanel CartItemPanel = new JPanel();
+        CartItemPanel.setLayout(new GridLayout(0, 2));
 
-        this.add(productPanel, BorderLayout.CENTER);
+        this.add(CartItemPanel, BorderLayout.CENTER);
 
         for (Product product : mall.get()) {
             JPanel panel = new JPanel();
-            JLabel name = new JLabel(product.name());
-            JLabel price = new JLabel("가격: " + product.price());
-            JButton button = new JButton("구매");
+            Button name = new Button(product.name() + "사진");
+            JLabel price = new JLabel("가격: " + product.price() + " 원");
 
-            button.addActionListener(event -> {
-                if (isGuest()) {
-                    return;
-                }
-
+            JPanel buttonPanel = new JPanel(new GridLayout(0, 1));
+            JButton toCart = new JButton("장바구니");
+            toCart.addActionListener(event -> {
                 try {
-                    purchase(product);
-                } catch (FileNotFoundException e) {
-                    throw new RuntimeException(e);
+                    mallController.toCart(product);
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
             });
 
+            addOrderButton(product, buttonPanel);
+
             panel.add(name);
             panel.add(price);
-            panel.add(button);
+            panel.add(buttonPanel);
 
-            productPanel.add(panel);
+            buttonPanel.add(toCart);
+
+            CartItemPanel.add(panel);
         }
+    }
+
+    private void addOrderButton(Product product, JPanel buttonPanel) {
+        JButton order = new JButton("주문");
+        order.addActionListener(event -> {
+            if (isGuest()) {
+                return;
+            }
+
+            try {
+                purchase(product);
+            } catch (FileNotFoundException e) {
+                throw new RuntimeException(e);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
+        buttonPanel.add(order);
     }
 
     private boolean isGuest() {

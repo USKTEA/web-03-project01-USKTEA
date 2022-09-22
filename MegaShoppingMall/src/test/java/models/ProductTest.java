@@ -1,7 +1,6 @@
 package models;
 
 import constants.Constants;
-import models.Product;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -29,6 +28,4 @@ class ProductTest {
         assertEquals(product1, product2);
         assertNotEquals(product1, product3);
     }
-
 }
-

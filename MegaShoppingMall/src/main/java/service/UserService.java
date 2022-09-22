@@ -15,6 +15,10 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
+    public UserService() {
+        this.userRepository = new UserRepository();
+    }
+
     public void setSession(User user) {
         userRepository.setSession(user);
     }
@@ -25,6 +29,12 @@ public class UserService {
 
     public void purchase(User user, Order order) throws IOException {
         user.pay(order);
+
+        userRepository.modifyMoney(user.id(), user.balance());
+    }
+
+    public void refund(User user, Order order) throws IOException {
+        user.refund(order);
 
         userRepository.modifyMoney(user.id(), user.balance());
     }

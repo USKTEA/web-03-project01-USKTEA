@@ -2,6 +2,7 @@ package repository;
 
 import controller.Provider;
 import infrastructure.Infrastructure;
+import models.CartItem;
 import models.Order;
 
 import java.io.FileNotFoundException;
@@ -11,7 +12,7 @@ import java.util.List;
 public class OrderRepository {
     private Provider provider;
     private Infrastructure infrastructure;
-    private List<Order> orderList;
+    private List<Order> orders;
 
     public OrderRepository() throws FileNotFoundException {
         infrastructure = new Infrastructure("orders.csv");
@@ -28,34 +29,38 @@ public class OrderRepository {
     }
 
     public void record(Order order) throws IOException {
-        orderList.add(order);
+        orders.add(order);
 
         infrastructure.recordOrder(order);
-        provider.notify(orderList);
+        provider.notify(orders);
     }
 
     public List<Order> getOrders() throws FileNotFoundException {
-        orderList = infrastructure.getOrders();
-        provider.notify(orderList);
+        orders = infrastructure.getOrders();
+        provider.notify(orders);
 
-        return orderList;
+        return orders;
     }
 
     public void setDelivered(Order delivered) throws IOException {
-        for (Order order : orderList) {
+        for (Order order : orders) {
             if (order.id() == delivered.id()) {
                 order.setDelivered();
             }
         }
 
         infrastructure.setDelivered(delivered);
-        provider.notify(orderList);
+        provider.notify(orders);
     }
 
     public void deleteOrder(Order order) throws IOException {
-        orderList.remove(order);
+        orders.remove(order);
 
         infrastructure.deleteOrder(order);
-        provider.notify(orderList);
+        provider.notify(orders);
+    }
+
+    public void add(CartItem cartItem) throws IOException {
+        infrastructure.cartItemToOrder(cartItem);
     }
 }

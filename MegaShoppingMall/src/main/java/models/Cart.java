@@ -4,29 +4,29 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Cart {
-    List<Product> list;
+    private List<CartItem> CartItems;
 
     public Cart() {
-        this.list = new ArrayList<>();
+        this.CartItems = new ArrayList<>();
     }
 
-    public Cart(List<Product> productList) {
-        this.list = productList;
+    public Cart(List<CartItem> CartItems) {
+        this.CartItems = CartItems;
     }
 
-    public void add(Product product) {
-        list.add(product);
+    public void add(CartItem CartItem) {
+        CartItems.add(CartItem);
     }
 
-    public void delete(Product product) {
-        list.remove(product);
+    public void delete(CartItem CartItem) {
+        CartItems.remove(CartItem);
     }
 
-    public boolean has(Product product) {
-        return list.contains(product);
+    public boolean has(CartItem CartItem) {
+        return CartItems.contains(CartItem);
     }
 
-    public List<Product> list() {
-        return list;
+    public List<CartItem> items() {
+        return CartItems;
     }
 }

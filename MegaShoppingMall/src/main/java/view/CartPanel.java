@@ -3,30 +3,36 @@ package view;
 import controller.CartController;
 
 import models.Cart;
-import models.Product;
+import models.CartItem;
 
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.Frame;
 import java.awt.GridLayout;
 
+import java.io.IOException;
 import java.util.List;
 
 import java.io.FileNotFoundException;
 
 public class CartPanel extends JPanel {
-    private JPanel record;
-    private JPanel productInformation;
+    private CartController cartController;
+
+    private JPanel CartItemPanel;
+    private JPanel CartItemInformation;
     private JPanel buttonPanel;
     private JPanel detailPanel;
 
     public CartPanel(CartController cartController) throws FileNotFoundException {
         this.setLayout(new BorderLayout());
         this.setOpaque(false);
+        this.cartController = cartController;
 
         updateDisplay(cartController.getCart());
     }
@@ -50,53 +56,49 @@ public class CartPanel extends JPanel {
         JPanel recordPanel = new JPanel(new GridLayout(0, 1));
         recordPanel.setOpaque(false);
 
-        for (Product product : cart.list()) {
-            addProductPanel(product);
-            addButtonPanel(recordPanel, product);
+        for (CartItem cartItem : cart.items()) {
+            addCartItemPanel(cartItem);
+            addButtonPanel(recordPanel, cartItem);
         }
 
         addScrollPane(recordPanel);
         addControlPanel();
         addCartDetail(cart);
-        addOrderButton();
+        addOrderButton(cart);
 
         update();
     }
 
-    private void addProductPanel(Product product) {
-        record = new JPanel();
-        record.setBorder(new EmptyBorder(10, 20, 10, 20));
-        record.setOpaque(false);
+    private void addCartItemPanel(CartItem cartItem) {
+        CartItemPanel = new JPanel();
+        CartItemPanel.setBorder(new EmptyBorder(10, 20, 10, 20));
+        CartItemPanel.setOpaque(false);
 
-        productInformation = new JPanel(new GridLayout(0, 1));
-        productInformation.add(new JLabel("상품명: " + product.name()));
-        productInformation.add(new JLabel("상품 가격: " + product.price()));
+        CartItemInformation = new JPanel(new GridLayout(0, 1));
+        CartItemInformation.add(new JLabel("상품명: " + cartItem.name()));
+        CartItemInformation.add(new JLabel("상품 가격: " + cartItem.price()));
 
-        record.add(productInformation, BorderLayout.CENTER);
+        CartItemPanel.add(CartItemInformation, BorderLayout.CENTER);
     }
 
-    private void addButtonPanel(JPanel recordPanel, Product product) {
-        buttonPanel = new JPanel(new GridLayout(0, 1));
+    private void addCartDetail(Cart cart) {
+        List<CartItem> cartItems = cart.items();
 
-        addReceivedButton(product);
+        int sum = cartItems.stream()
+                .map(CartItem::price)
+                .map(price -> Integer.parseInt(price))
+                .reduce(0, (a, b) -> a + b);
 
-        JButton orderOne = new JButton("바로 구매");
-        orderOne.addActionListener(event -> {
-            //  cartController.purchase(product);
-        });
+        int count = cartItems.size() - 1;
+        
+        JPanel cartDetail = new JPanel();
+        JLabel totalCount = new JLabel("총 수량: " + count + "개");
+        JLabel totalAmount = new JLabel(" 합계: " + sum + "원");
 
-        buttonPanel.add(orderOne);
-        record.add(buttonPanel);
-        recordPanel.add(record);
-    }
+        cartDetail.add(totalCount);
+        cartDetail.add(totalAmount);
 
-    private void addReceivedButton(Product product) {
-        JButton received = new JButton("삭제");
-        received.addActionListener(event -> {
-            //    cartController.deleteProduct(product);
-        });
-
-        buttonPanel.add(received);
+        detailPanel.add(cartDetail);
     }
 
     private void addScrollPane(JPanel recordPanel) {
@@ -107,34 +109,93 @@ public class CartPanel extends JPanel {
         this.add(scrollPane, BorderLayout.CENTER);
     }
 
-    private void addControlPanel() {
-        detailPanel = new JPanel(new GridLayout(0, 1));
+    private void addButtonPanel(JPanel recordPanel, CartItem cartItem) {
+        buttonPanel = new JPanel(new GridLayout(0, 1));
 
-        this.add(detailPanel, BorderLayout.PAGE_END);
+        addDeleteButton(cartItem);
+        addPurchaseOneButton(cartItem);
+
+        CartItemPanel.add(buttonPanel);
+        recordPanel.add(CartItemPanel);
     }
 
-    private void addCartDetail(Cart cart) {
-        List<Product> list = cart.list();
+    private void addPurchaseOneButton(CartItem cartItem) {
+        JButton orderOne = new JButton("바로 구매");
+        orderOne.addActionListener(event -> {
+            try {
+                if (cartController.order(cartItem).isEmpty()) {
+                    final JDialog frame = new JDialog(new Frame(), "Error", true);
 
-        int listSum = list.stream()
-                .map(Product::price)
-                .map(price -> Integer.parseInt(price))
-                .reduce(0, (a, b) -> a + b);
+                    JPanel error = new JPanel();
+                    error.add(new JLabel("보유 금액이 부족합니다."));
 
-        JPanel cartDetail = new JPanel();
-        JLabel totalCount = new JLabel("총 수량: " + list.size() + "개");
-        JLabel totalAmount = new JLabel(" 합계: " + listSum + "원");
+                    frame.getContentPane().add(error);
+                    frame.setLocationRelativeTo(null);
+                    frame.pack();
+                    frame.setVisible(true);
 
-        cartDetail.add(totalCount);
-        cartDetail.add(totalAmount);
+                    return;
+                }
 
-        detailPanel.add(cartDetail);
+                updateDisplay(cartController.getCart());
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
+
+        buttonPanel.add(orderOne);
     }
 
-    private void addOrderButton() {
+    private void addDeleteButton(CartItem cartItem) {
+        JButton delete = new JButton("삭제");
+        delete.addActionListener(event -> {
+            try {
+
+                cartController.delete(cartItem);
+                updateDisplay(cartController.getCart());
+
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
+
+        buttonPanel.add(delete);
+    }
+
+    private void addOrderButton(Cart cart) {
         JButton orderAll = new JButton("주문 하기");
+        orderAll.addActionListener(event -> {
+            if (cart.items().size() == 0) {
+                return;
+            }
+
+            try {
+                if (cartController.orderAll(cart).isEmpty()) {
+                    final JDialog frame = new JDialog(new Frame(), "Error", true);
+
+                    JPanel error = new JPanel();
+                    error.add(new JLabel("보유 금액이 부족합니다."));
+
+                    frame.getContentPane().add(error);
+                    frame.setLocationRelativeTo(null);
+                    frame.pack();
+                    frame.setVisible(true);
+
+                    return;
+                }
+
+                updateDisplay(cartController.getCart());
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
 
         detailPanel.add(orderAll);
+    }
+
+    private void addControlPanel() {
+        detailPanel = new JPanel(new GridLayout(0, 1));
+        this.add(detailPanel, BorderLayout.PAGE_END);
     }
 
     private void update() {

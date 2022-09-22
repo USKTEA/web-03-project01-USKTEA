@@ -10,31 +10,31 @@ class CartTest {
 
     @Test
     void creation() {
-        List<Product> productList = List.of(
-                new Product(),
-                new Product(),
-                new Product()
+        List<CartItem> items = List.of(
+                new CartItem(),
+                new CartItem(),
+                new CartItem()
         );
 
-        Cart cart = new Cart(productList);
+        Cart cart = new Cart(items);
 
-        assertEquals(productList, cart.list);
+        assertEquals(items, cart.items());
     }
 
     @Test
     void add() {
         Cart cart = new Cart();
-        cart.add(new Product());
+        cart.add(new CartItem());
 
-        assertEquals(true, cart.has(new Product()));
+        assertEquals(true, cart.has(new CartItem()));
     }
 
     @Test
     void delete() {
         Cart cart = new Cart();
-        cart.add(new Product());
-        cart.delete(new Product());
+        cart.add(new CartItem());
+        cart.delete(new CartItem());
 
-        assertEquals(false, cart.has(new Product()));
+        assertEquals(false, cart.has(new CartItem()));
     }
 }

@@ -1,9 +1,7 @@
 package models;
 
 import constants.Constants;
-import models.Product;
-import models.Order;
-import models.User;
+
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -42,14 +40,26 @@ class UserTest {
     }
 
     @Test
-    void billing() throws IOException {
-        int money = 100;
+    void billing() {
+        int balance = 100;
         int price = 10;
 
-        User user = new User(money);
+        User user = new User(balance);
         Product product = new Product("테스트상품", price);
         user.pay(new Order(product));
 
         assertEquals(100 - 10, user.balance());
+    }
+
+    @Test
+    void refund() {
+        int balance = 100;
+        int price = 10;
+
+        User user = new User(balance);
+        Product product = new Product("테스트상품", price);
+        user.refund(new Order(product));
+
+        assertEquals(100 + 10, user.balance());
     }
 }

@@ -1,7 +1,7 @@
 package view;
 
 import controller.Observer;
-import controller.OrderHistoryController;
+import controller.OrderPanelController;
 import models.Order;
 
 import javax.swing.JButton;
@@ -20,23 +20,23 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-public class OrderHistory extends JPanel implements Observer {
-    private OrderHistoryController orderHistoryController;
+public class OrderPanel extends JPanel implements Observer {
+    private OrderPanelController orderPanelController;
 
     private JPanel record;
     private JPanel orderInformation;
-    private JPanel productInformation;
+    private JPanel CartItemInformation;
     private JPanel buttonPanel;
 
-    OrderHistory(OrderHistoryController orderHistoryController) throws FileNotFoundException {
-        this.orderHistoryController = orderHistoryController;
+    OrderPanel(OrderPanelController orderPanelController) throws FileNotFoundException {
+        this.orderPanelController = orderPanelController;
         this.setLayout(new BorderLayout());
         this.setOpaque(false);
 
-        updateDisplay(orderHistoryController.getOrderList());
+        updateDisplay(orderPanelController.getOrderList());
     }
 
-    OrderHistory() {}
+    OrderPanel() {}
 
     private void addHeader() {
         JPanel header = new JPanel();
@@ -82,11 +82,11 @@ public class OrderHistory extends JPanel implements Observer {
         orderInformation = new JPanel(new GridLayout(0, 1));
         orderInformation.add(new JLabel("주문 날짜: " + timeInFormat));
 
-        productInformation = new JPanel();
-        productInformation.add(new JLabel("상품명: " + order.productName()));
-        productInformation.add(new JLabel("상품 가격: " + order.productPrice()));
+        CartItemInformation = new JPanel();
+        CartItemInformation.add(new JLabel("상품명: " + order.productName()));
+        CartItemInformation.add(new JLabel("상품 가격: " + order.price()));
 
-        orderInformation.add(productInformation);
+        orderInformation.add(CartItemInformation);
         record.add(orderInformation, BorderLayout.CENTER);
     }
 
@@ -104,11 +104,12 @@ public class OrderHistory extends JPanel implements Observer {
         JButton cancel = new JButton("주문 취소");
         cancel.addActionListener(event -> {
             try {
-                orderHistoryController.deleteOrder(order);
+                orderPanelController.deleteOrder(order);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
         });
+
         buttonPanel.add(cancel);
     }
 
@@ -116,7 +117,7 @@ public class OrderHistory extends JPanel implements Observer {
         JButton received = new JButton("주문 수령");
         received.addActionListener(event -> {
             try {
-                orderHistoryController.setDelivered(order);
+                orderPanelController.setDelivered(order);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -145,9 +146,9 @@ public class OrderHistory extends JPanel implements Observer {
 
     @Override
     public boolean equals(Object other) {
-        OrderHistory otherOrderHistory = (OrderHistory) other;
+        OrderPanel otherOrderPanel = (OrderPanel) other;
 
-        return this.getClass().getSimpleName().equals(otherOrderHistory.getClass().getSimpleName());
+        return this.getClass().getSimpleName().equals(otherOrderPanel.getClass().getSimpleName());
     }
 
     @Override
