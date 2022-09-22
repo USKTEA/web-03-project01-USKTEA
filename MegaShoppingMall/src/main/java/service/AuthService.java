@@ -1,5 +1,6 @@
-package models;
+package service;
 
+import models.User;
 import repository.UserRepository;
 
 import java.io.IOException;

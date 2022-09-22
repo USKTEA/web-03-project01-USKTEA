@@ -4,16 +4,22 @@ import controller.MallController;
 import controller.LoginController;
 import controller.OrderHistoryController;
 import controller.Provider;
+import controller.CartController;
+import models.User;
 import repository.OrderRepository;
 import repository.UserRepository;
 import service.OrderService;
 import service.UserService;
 
 import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Frame;
 import java.io.FileNotFoundException;
+import java.util.Optional;
 
 public class MainPanel extends JPanel {
     private Provider provider = new Provider();
@@ -89,8 +95,32 @@ public class MainPanel extends JPanel {
         buttonPanel.add(cart);
 
         cart.addActionListener(event -> {
+            Optional<User> session = userService.getSession();
+
+            if (session.isEmpty()) {
+                final JDialog frame = new JDialog(new Frame(), "Error", true);
+
+                JPanel error = new JPanel();
+                error.add(new JLabel("로그인이 필요한 서비스입니다."));
+
+                frame.getContentPane().add(error);
+                frame.setLocationRelativeTo(null);
+                frame.pack();
+                frame.setVisible(true);
+
+                return;
+            }
+
             contentPanel.removeAll();
-            // contentPanel.add(new LoginPanel(viewController));
+
+            User user = session.get();
+            CartController cartController = new CartController(user);
+
+            try {
+                contentPanel.add(new CartPanel(cartController));
+            } catch (FileNotFoundException e) {
+                throw new RuntimeException(e);
+            }
             contentPanel.setVisible(false);
             contentPanel.setVisible(true);
         });
@@ -101,7 +131,7 @@ public class MainPanel extends JPanel {
         buttonPanel.add(order);
 
         OrderService orderService = new OrderService(new OrderRepository(provider));
-        OrderHistoryController orderHistoryController = new OrderHistoryController(userService, orderService);
+        OrderHistoryController orderHistoryController = new OrderHistoryController(orderService);
 
         order.addActionListener(event -> {
             contentPanel.removeAll();

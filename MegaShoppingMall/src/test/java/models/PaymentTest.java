@@ -1,3 +1,5 @@
+package models;
+
 import models.Payment;
 import models.Product;
 import models.Order;

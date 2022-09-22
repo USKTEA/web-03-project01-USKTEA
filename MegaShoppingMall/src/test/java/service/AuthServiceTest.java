@@ -1,5 +1,6 @@
+package service;
+
 import constants.Constants;
-import models.AuthService;
 import models.User;
 import org.junit.jupiter.api.Test;
 
