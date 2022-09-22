@@ -13,8 +13,10 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
-import java.io.IOException;
+
 import java.util.Optional;
+
+import java.io.IOException;
 import java.io.FileNotFoundException;
 
 public class LoginPanel extends JPanel { //TODO session 살아있으면 렌더링 안되게
