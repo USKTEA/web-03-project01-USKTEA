@@ -51,27 +51,7 @@ public class MallPanel extends JPanel {
         addHeader();
         addContentPanel();
         addProductPanel();
-
-
-        if (mallPanelController.getSession().isPresent()) {
-            initPopUp();
-            addGamePanel();
-        }
-    }
-
-    private void initPopUp() {
-        final JDialog frame = new JDialog(new Frame(), "Error", true);
-
-        JPanel information = new JPanel();
-        TextArea textArea = new TextArea();
-        textArea.append("화면 하단에 있는 미니게임(과제)을 작성하면 포인트를 획득할 수 있습니다" +
-                "\n" + "획득한 포인트로 여러 가지 요청해봅시다.");
-        information.add(textArea);
-
-        frame.getContentPane().add(information);
-        frame.setLocationRelativeTo(null);
-        frame.pack();
-        frame.setVisible(true);
+        addGamePanel();
     }
 
     private void addHeader() {

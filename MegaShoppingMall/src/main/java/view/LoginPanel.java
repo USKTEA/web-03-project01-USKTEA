@@ -11,13 +11,16 @@ import service.UserService;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import java.awt.BorderLayout;
+import java.awt.Frame;
 import java.awt.GridLayout;
 
+import java.awt.TextArea;
 import java.util.Optional;
 
 import java.io.IOException;
@@ -113,6 +116,7 @@ public class LoginPanel extends JPanel { //TODO session 살아있으면 렌더�
                 setUserSession(user.get());
                 changeButton();
                 showMallPanel();
+                initPopUp();
             } catch (FileNotFoundException e) {
                 throw new RuntimeException(e);
             } catch (IOException e) {
@@ -121,6 +125,21 @@ public class LoginPanel extends JPanel { //TODO session 살아있으면 렌더�
         });
 
         form.add(submit);
+    }
+
+    private void initPopUp() {
+        final JDialog frame = new JDialog(new Frame(), "Error", true);
+
+        JPanel information = new JPanel();
+        TextArea textArea = new TextArea();
+        textArea.append("화면 하단에 있는 미니게임(과제)을 작성하면 포인트를 획득할 수 있습니다" +
+                "\n" + "획득한 포인트로 여러 가지 요청해봅시다.");
+        information.add(textArea);
+
+        frame.getContentPane().add(information);
+        frame.setLocationRelativeTo(null);
+        frame.pack();
+        frame.setVisible(true);
     }
 
     private void changeButton() {
