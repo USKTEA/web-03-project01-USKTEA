@@ -11,9 +11,10 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 import java.awt.BorderLayout;
-import java.awt.Font;
+import java.awt.Dimension;
 import java.awt.Frame;
 import java.awt.GridLayout;
 
@@ -37,15 +38,17 @@ public class MallPanel extends JPanel {
 
     private void initMallPanel() throws FileNotFoundException {
         this.setLayout(new BorderLayout());
+        this.setOpaque(false);
 
         addHeader();
-        addCartItemPanel();
+        addProductPanel();
     }
 
     private void addHeader() {
         String[] userInformation = mallPanelController.userInformation();
 
         header = new JPanel();
+        header.setOpaque(false);
         header.setLayout(new GridLayout(0, 3));
         header.add(new JLabel("ID : " + userInformation[0]));
         header.add(new JLabel("보유 금액 : " + userInformation[1]));
@@ -55,11 +58,10 @@ public class MallPanel extends JPanel {
         this.add(header, BorderLayout.NORTH);
     }
 
-    private void addCartItemPanel() throws FileNotFoundException {
-        JPanel CartItemPanel = new JPanel();
-        CartItemPanel.setLayout(new GridLayout(0, 2));
+    private void addProductPanel() throws FileNotFoundException {
+        JPanel productPanel = new JPanel();
+        productPanel.setLayout(new GridLayout(0, 2));
 
-        this.add(CartItemPanel, BorderLayout.CENTER);
 
         for (Product product : mallcontroller.products()) {
             JPanel panel = new JPanel();
@@ -88,8 +90,18 @@ public class MallPanel extends JPanel {
 
             buttonPanel.add(toCart);
 
-            CartItemPanel.add(panel);
+            productPanel.add(panel);
+
+            addScrollPane(productPanel);
         }
+    }
+
+    private void addScrollPane(JPanel productPanel) {
+        JScrollPane scrollPane = new JScrollPane(productPanel);
+        scrollPane.setPreferredSize(new Dimension(1000 , 600));
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+
+        this.add(scrollPane, BorderLayout.CENTER);
     }
 
     private void addOrderButton(Product product, JPanel buttonPanel) {

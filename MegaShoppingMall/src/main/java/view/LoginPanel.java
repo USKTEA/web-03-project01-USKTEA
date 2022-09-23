@@ -1,5 +1,6 @@
 package view;
 
+import constants.Constants;
 import controller.MallController;
 import controller.MallPanelController;
 import service.AuthService;
@@ -7,6 +8,8 @@ import models.User;
 import controller.LoginController;
 import service.UserService;
 
+import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -32,24 +35,35 @@ public class LoginPanel extends JPanel { //TODO session 살아있으면 렌더�
     public LoginPanel(LoginController loginController, UserService userService) {
         this.loginController = loginController;
         this.userService = userService;
-
         this.setLayout(new BorderLayout());
+        this.setOpaque(false);
 
         initLoginPanel();
     }
 
     private void initLoginPanel() {
+        addTitle();
         initForm();
         addIdForm();
         addPasswordForm();
         addSubmitButton(idField, passwordField);
     }
 
+    private void addTitle() {
+        ImageIcon imageIcon = new ImageIcon(Constants.TITLE);
+        JPanel title = new JPanel();
+        title.setOpaque(false);
+        title.setBorder(BorderFactory.createEmptyBorder(150, 0, 0, 0));
+        JLabel label = new JLabel(imageIcon);
+        title.add(label);
+        this.add(title, BorderLayout.NORTH);
+    }
+
     private void initForm() {
         form = new JPanel();
         form.setLayout(new GridLayout(0, 1));
-
-        this.add(form);
+        form.setBorder(BorderFactory.createEmptyBorder(100, 100, 100 ,100));
+        this.add(form, BorderLayout.CENTER);
     }
 
     private void addPasswordForm() {

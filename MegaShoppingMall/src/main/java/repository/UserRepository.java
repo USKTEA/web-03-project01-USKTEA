@@ -31,4 +31,8 @@ public class UserRepository {
     public Optional<User> getSession() {
         return session.getUser();
     }
+
+    public void logOut() {
+        session.logOut();
+    }
 }

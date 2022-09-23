@@ -58,7 +58,6 @@ public class OrderPanel extends JPanel implements Observer {
 
         for (Order order : orderList) {
             if (order.delivered() == true) {
-
                 continue;
             }
 

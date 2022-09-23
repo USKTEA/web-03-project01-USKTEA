@@ -5,7 +5,6 @@ import javax.swing.UIManager;
 import javax.swing.plaf.FontUIResource;
 import java.awt.Font;
 
-import java.io.FileNotFoundException;
 import java.util.Enumeration;
 
 public class MegaMall {
@@ -24,7 +23,7 @@ public class MegaMall {
         }
     }
 
-    public static void main(String[] args) throws FileNotFoundException {
+    public static void main(String[] args) {
         Font font = new Font("NanumGothic", Font.BOLD, 16);
         setFont(new FontUIResource(font));
         MegaMall application = new MegaMall();
@@ -33,19 +32,19 @@ public class MegaMall {
         application.run();
     }
 
-    private void run() throws FileNotFoundException {
+    private void run() {
         initFrame();
         addContentPanel();
     }
 
     private void initFrame() {
-        frame = new JFrame("MegaMall");
+        frame = new JFrame("MegapMall");
         frame.setLocationRelativeTo(null);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setBounds(800, 1000, 800, 1000);
+        frame.setBounds(1000, 1200, 1000, 1200);
     }
 
-    private void addContentPanel() throws FileNotFoundException {
+    private void addContentPanel() {
         MainPanel mainPanel = new MainPanel();
         frame.add(mainPanel);
         frame.setVisible(false);

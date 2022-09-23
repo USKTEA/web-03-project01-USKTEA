@@ -7,6 +7,7 @@ import controller.LoginController;
 import controller.OrderPanelController;
 import controller.Provider;
 import controller.CartController;
+import controller.UserPanelController;
 import models.User;
 import repository.OrderRepository;
 import repository.UserRepository;
@@ -19,10 +20,8 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.UIManager;
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Font;
 import java.awt.Frame;
 
 import java.util.Optional;
@@ -34,6 +33,7 @@ public class MainPanel extends JPanel {
     private UserRepository userRepository = new UserRepository();
     private LoginController loginController;
     private UserService userService;
+    private UserPanelController userPanelController;
 
     private JPanel buttonPanel;
     private JPanel contentPanel;
@@ -48,7 +48,7 @@ public class MainPanel extends JPanel {
 
     private void initContentPanel() {
         contentPanel = new JPanel();
-        Color color = new Color(245, 223, 77, 30);
+        Color color = new Color(255, 252, 239);
         contentPanel.setBackground(color);
 
         this.add(contentPanel, BorderLayout.CENTER);
@@ -84,12 +84,15 @@ public class MainPanel extends JPanel {
         login.setBorderPainted(false);
         buttonPanel.add(login);
 
-
         login.addActionListener(event -> {
-            contentPanel.removeAll();
-            contentPanel.add(new LoginPanel(loginController, userService));
-            contentPanel.setVisible(false);
-            contentPanel.setVisible(true);
+            Optional<User> session = userRepository.getSession();
+
+            if (session.isEmpty()) {
+                contentPanel.removeAll();
+                contentPanel.add(new LoginPanel(loginController, userService));
+                contentPanel.setVisible(false);
+                contentPanel.setVisible(true);
+            }
         });
     }
 
@@ -196,7 +199,7 @@ public class MainPanel extends JPanel {
 
         account.addActionListener(event -> {
             contentPanel.removeAll();
-          //  contentPanel.add(new UserPanel(viewController));
+            contentPanel.add(new UserPanel(new UserPanelController(userRepository)));
             contentPanel.setVisible(false);
             contentPanel.setVisible(true);
         });

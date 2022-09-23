@@ -14,4 +14,9 @@ public class Constants {
     public static String LOGIN_IMG = "src/main/resources/images/login.png";
     public static String ORDER_IMG = "src/main/resources/images/order.png";
     public static String SHOP_IMG = "src/main/resources/images/shop.png";
+
+    public static String TITLE = "src/main/resources/images/fruites.png";
+
+    public static String LOGOUT = "src/main/resources/images/logout.png";
+    public static String LOGOUT2 = "src/main/resources/images/logout2.png";
 }
