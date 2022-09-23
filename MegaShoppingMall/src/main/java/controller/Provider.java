@@ -18,6 +18,7 @@ public class Provider implements Observable {
         observers.add(observer);
     }
 
+
     @Override
     public void notify(List<Order> orders) {
         observers.forEach(observer -> observer.updateDisplay(orders));

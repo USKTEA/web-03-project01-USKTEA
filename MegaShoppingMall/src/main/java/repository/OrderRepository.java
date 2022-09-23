@@ -1,10 +1,9 @@
 package repository;
 
 import controller.Provider;
-import infrastructure.Infrastructure;
+import infrastructure.FileManager;
 import models.CartItem;
 import models.Order;
-import models.User;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -12,18 +11,18 @@ import java.util.List;
 
 public class OrderRepository {
     private Provider provider;
-    private Infrastructure infrastructure;
+    private FileManager fileManager;
     private List<Order> orders;
 
     public OrderRepository() throws FileNotFoundException {
-        infrastructure = new Infrastructure("orders.csv");
+        fileManager = new FileManager("orders.csv");
         this.provider = new Provider();
 
         getOrders();
     }
 
     public OrderRepository(Provider provider) throws FileNotFoundException {
-        infrastructure = new Infrastructure("orders.csv");
+        fileManager = new FileManager("orders.csv");
         this.provider = provider;
 
         getOrders();
@@ -32,12 +31,12 @@ public class OrderRepository {
     public void record(Order order) throws IOException {
         orders.add(order);
 
-        infrastructure.recordOrder(order);
+        fileManager.recordOrder(order);
         provider.notify(orders);
     }
 
     public List<Order> getOrders() throws FileNotFoundException {
-        orders = infrastructure.getOrders();
+        orders = fileManager.getOrders();
         provider.notify(orders);
 
         return orders;
@@ -50,18 +49,18 @@ public class OrderRepository {
             }
         }
 
-        infrastructure.setDelivered(delivered);
+        fileManager.setDelivered(delivered);
         provider.notify(orders);
     }
 
     public void deleteOrder(Order order) throws IOException {
         orders.remove(order);
 
-        infrastructure.deleteOrder(order);
+        fileManager.deleteOrder(order);
         provider.notify(orders);
     }
 
     public void add(CartItem cartItem) throws IOException {
-        infrastructure.cartItemToOrder(cartItem);
+        fileManager.cartItemToOrder(cartItem);
     }
 }

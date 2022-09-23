@@ -1,6 +1,6 @@
 package repository;
 
-import infrastructure.Infrastructure;
+import infrastructure.FileManager;
 import models.Cart;
 import models.CartItem;
 import models.Product;
@@ -10,21 +10,21 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public class CartRepository {
-    Infrastructure infrastructure;
+    FileManager fileManager;
 
     public CartRepository() {
-        this.infrastructure = new Infrastructure("cart.csv");
+        this.fileManager = new FileManager("cart.csv");
     }
 
     public Cart getCart(User user) throws FileNotFoundException {
-        return infrastructure.getCart(user);
+        return fileManager.getCart(user);
     }
 
     public void add(Product product, User user) throws IOException {
-        infrastructure.addItemToCart(product, user);
+        fileManager.addItemToCart(product, user);
     }
 
-    public void delete(CartItem cartItem, User user) throws IOException {
-        infrastructure.deleteItemFromCart(cartItem, user);
+    public void delete(CartItem cartItem) throws IOException {
+        fileManager.deleteItemFromCart(cartItem);
     }
 }

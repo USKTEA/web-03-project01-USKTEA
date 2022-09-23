@@ -31,15 +31,21 @@ public class LoginPanel extends JPanel { //TODO session 살아있으면 렌더�
     private JLabel error;
     private JPasswordField passwordField;
     private JTextField idField;
+    private JButton loginButton;
+    private JPanel buttonPanel;
 
-    public LoginPanel(LoginController loginController, UserService userService) {
+    public LoginPanel(LoginController loginController, UserService userService, JButton loginButton, JPanel buttonPanel) {
         this.loginController = loginController;
         this.userService = userService;
+        this.loginButton = loginButton;
+        this.buttonPanel = buttonPanel;
+
         this.setLayout(new BorderLayout());
         this.setOpaque(false);
 
         initLoginPanel();
     }
+
 
     private void initLoginPanel() {
         addTitle();
@@ -91,7 +97,7 @@ public class LoginPanel extends JPanel { //TODO session 살아있으면 렌더�
 
                 if (user.isEmpty()) {
                     if (error == null) {
-                        error = new JLabel("계정을 확인해주세요!");
+                        error = new JLabel("아이디 혹은 비밀번호가 맞지 않습니다.");
                         form.add(error);
                     }
 
@@ -101,7 +107,11 @@ public class LoginPanel extends JPanel { //TODO session 살아있으면 렌더�
                     return;
                 }
 
+                ImageIcon imageIcon = new ImageIcon(Constants.LOGOUT);
+                loginButton.setIcon(imageIcon);
+
                 setUserSession(user.get());
+                changeButton();
                 showMallPanel();
             } catch (FileNotFoundException e) {
                 throw new RuntimeException(e);
@@ -111,6 +121,13 @@ public class LoginPanel extends JPanel { //TODO session 살아있으면 렌더�
         });
 
         form.add(submit);
+    }
+
+    private void changeButton() {
+        ImageIcon imageIcon = new ImageIcon(Constants.LOGOUT);
+        loginButton = new JButton(imageIcon);
+        buttonPanel.setVisible(false);
+        buttonPanel.setVisible(true);
     }
 
     private void showMallPanel() throws FileNotFoundException {

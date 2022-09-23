@@ -30,7 +30,7 @@ public class CartController {
     }
 
     public void delete(CartItem cartItem) throws IOException {
-        cartService.delete(cartItem, user);
+        cartService.delete(cartItem);
     }
 
     public Optional<Order> order(CartItem cartItem) throws IOException {

@@ -40,7 +40,7 @@ public class CartPanel extends JPanel {
     private void addHeader() {
         JPanel header = new JPanel();
 
-        JLabel label = new JLabel("장바구니");
+        JLabel label = new JLabel("요청 리스트");
         label.setBorder(new EmptyBorder(0, 30, 0, 30));
         label.setHorizontalAlignment(JLabel.CENTER);
 
@@ -75,8 +75,8 @@ public class CartPanel extends JPanel {
         CartItemPanel.setOpaque(false);
 
         CartItemInformation = new JPanel(new GridLayout(0, 1));
-        CartItemInformation.add(new JLabel("상품명: " + cartItem.name()));
-        CartItemInformation.add(new JLabel("상품 가격: " + cartItem.price()));
+        CartItemInformation.add(new JLabel("요청 품목: " + cartItem.name()));
+        CartItemInformation.add(new JLabel("가격: " + cartItem.price()));
 
         CartItemPanel.add(CartItemInformation, BorderLayout.CENTER);
     }
@@ -118,14 +118,14 @@ public class CartPanel extends JPanel {
     }
 
     private void addPurchaseOneButton(CartItem cartItem) {
-        JButton orderOne = new JButton("바로 구매");
+        JButton orderOne = new JButton("바로 요청");
         orderOne.addActionListener(event -> {
             try {
                 if (cartController.order(cartItem).isEmpty()) {
                     final JDialog frame = new JDialog(new Frame(), "Error", true);
 
                     JPanel error = new JPanel();
-                    error.add(new JLabel("보유 금액이 부족합니다."));
+                    error.add(new JLabel("보유 포인트가 부족합니다."));
 
                     frame.getContentPane().add(error);
                     frame.setLocationRelativeTo(null);
@@ -161,7 +161,7 @@ public class CartPanel extends JPanel {
     }
 
     private void addOrderButton(Cart cart) {
-        JButton orderAll = new JButton("주문 하기");
+        JButton orderAll = new JButton("요청 하기");
         orderAll.addActionListener(event -> {
             if (cart.items().size() == 0) {
                 return;
@@ -172,7 +172,7 @@ public class CartPanel extends JPanel {
                     final JDialog frame = new JDialog(new Frame(), "Error", true);
 
                     JPanel error = new JPanel();
-                    error.add(new JLabel("보유 금액이 부족합니다."));
+                    error.add(new JLabel("보유 포인트가 부족합니다."));
 
                     frame.getContentPane().add(error);
                     frame.setLocationRelativeTo(null);

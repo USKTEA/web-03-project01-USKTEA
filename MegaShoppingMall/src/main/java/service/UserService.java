@@ -38,4 +38,10 @@ public class UserService {
 
         userRepository.modifyMoney(user.id(), user.balance());
     }
+
+    public void getReward(User user, int reward) throws IOException {
+        user.getReward(reward);
+
+        userRepository.modifyMoney(user.id(), user.balance());
+    }
 }

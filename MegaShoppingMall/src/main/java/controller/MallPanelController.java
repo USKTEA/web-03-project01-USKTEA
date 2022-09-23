@@ -48,4 +48,10 @@ public class MallPanelController {
 
         new CartController(user).add(product);
     }
+
+    public void send(int reward) throws IOException {
+        user = session.get();
+
+        userService.getReward(user, reward);
+    }
 }
