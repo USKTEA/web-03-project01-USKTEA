@@ -3,8 +3,6 @@ package models;
 import java.io.IOException;
 import java.util.Objects;
 
-// TODO : 유저는 상품을 구매하고, 장바구니에 넣을 수 있음, 리뷰를 수정할 수 있음
-
 public class User {
     private String id;
     private String password;
