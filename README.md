@@ -18,27 +18,34 @@ https://user-images.githubusercontent.com/91834666/191998095-9505349f-3c6a-4c3f-
 * 요청한 서비스 확인
 * 요청한 서비스 취소
 
+
 ##  🗓작업 기간 
 * 2022.09.19 ~ 2022.09.23
+
 
 ## 프로젝트 상세 정보 
 [📱스크린캡처](https://github.com/1mptera/web-03-project01-USKTEA/wiki/%EB%A9%94%EA%B0%80%EB%AA%B0-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%ED%99%94%EB%A9%B4)
 [📝다이어그램](https://github.com/1mptera/web-03-project01-USKTEA/issues/2)
 
-## 프로젝트 실행 명령어 
+
+## 프로젝트 실행 명령어
+
 **Complie**
 ````
 ./gradlew compileJava 
 java -cp build/classes/java/main ClassName
 ````
+
 **Run**
 ````
 ./gradlew run
 ````
+
 **Run test**
 ````
 ./gradlew test
 ````
+
 
 ## 기술 스택 
 
