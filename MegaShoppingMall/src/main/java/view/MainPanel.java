@@ -1,16 +1,21 @@
 package view;
 
+import constants.Constants;
 import controller.MallController;
+import controller.MallPanelController;
 import controller.LoginController;
 import controller.OrderPanelController;
 import controller.Provider;
 import controller.CartController;
+import controller.UserPanelController;
 import models.User;
 import repository.OrderRepository;
 import repository.UserRepository;
 import service.OrderService;
 import service.UserService;
 
+import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
@@ -28,6 +33,7 @@ public class MainPanel extends JPanel {
     private UserRepository userRepository = new UserRepository();
     private LoginController loginController;
     private UserService userService;
+    private UserPanelController userPanelController;
 
     private JPanel buttonPanel;
     private JPanel contentPanel;
@@ -36,13 +42,14 @@ public class MainPanel extends JPanel {
         this.setLayout(new BorderLayout());
 
         initContentPanel();
-        initButtonPanel();
         initLoginPanel();
+        initButtonPanel();
     }
 
     private void initContentPanel() {
         contentPanel = new JPanel();
-        contentPanel.setBackground(Color.GRAY);
+        Color color = new Color(255, 252, 239);
+        contentPanel.setBackground(color);
 
         this.add(contentPanel, BorderLayout.CENTER);
     }
@@ -56,6 +63,8 @@ public class MainPanel extends JPanel {
 
     private void initButtonPanel() {
         buttonPanel = new JPanel();
+        Color color = new Color(245, 223, 77, 170);
+        buttonPanel.setBackground(color);
 
         addLoginButton();
         addShoppingButton();
@@ -69,31 +78,55 @@ public class MainPanel extends JPanel {
     }
 
     private void addLoginButton() {
-        JButton login = new JButton("로그인");
+        ImageIcon img = new ImageIcon(Constants.LOGIN_IMG);
+        JButton login = new JButton(img);
+        login.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 60));
+        login.setBorderPainted(false);
         buttonPanel.add(login);
 
         login.addActionListener(event -> {
-            contentPanel.removeAll();
-            contentPanel.add(new LoginPanel(loginController, userService));
-            contentPanel.setVisible(false);
-            contentPanel.setVisible(true);
+            Optional<User> session = userRepository.getSession();
+
+            if (session.isEmpty()) {
+                contentPanel.removeAll();
+                contentPanel.add(new LoginPanel(loginController, userService));
+                contentPanel.setVisible(false);
+                contentPanel.setVisible(true);
+            }
         });
     }
 
     private void addShoppingButton() {
-        JButton shop = new JButton("쇼핑몰");
+        ImageIcon img = new ImageIcon(Constants.SHOP_IMG);
+        JButton shop = new JButton(img);
+        shop.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 60));
+        shop.setBorderPainted(false);
         buttonPanel.add(shop);
 
         shop.addActionListener(event -> {
             contentPanel.removeAll();
-            contentPanel.add(new MallPanel(new MallController(userService)));
+
+            MallPanelController mallPanelController = new MallPanelController(userService);
+            MallController mallcontroller = new MallController();
+            MallPanel mallPanel = null;
+
+            try {
+                mallPanel = new MallPanel(mallPanelController, mallcontroller);
+            } catch (FileNotFoundException e) {
+                throw new RuntimeException(e);
+            }
+
+            contentPanel.add(mallPanel);
             contentPanel.setVisible(false);
             contentPanel.setVisible(true);
         });
     }
 
     private void addCartButton() {
-        JButton cart = new JButton("장바구니");
+        ImageIcon img = new ImageIcon(Constants.CART_IMG);
+        JButton cart = new JButton(img);
+        cart.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 60));
+        cart.setBorderPainted(false);
         buttonPanel.add(cart);
 
         cart.addActionListener(event -> {
@@ -129,8 +162,11 @@ public class MainPanel extends JPanel {
         });
     }
 
-    private void addOrderButton() {
-        JButton order = new JButton("주문 확인");
+    private void addOrderButton() throws RuntimeException {
+        ImageIcon img = new ImageIcon(Constants.ORDER_IMG);
+        JButton order = new JButton(img);
+        order.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 60));
+        order.setBorderPainted(false);
         buttonPanel.add(order);
 
         order.addActionListener(event -> {
@@ -156,12 +192,14 @@ public class MainPanel extends JPanel {
     }
 
     private void addInfoButton() {
-        JButton information = new JButton("내 정보");
-        buttonPanel.add(information);
+        ImageIcon img = new ImageIcon(Constants.ACCOUNT_IMG);
+        JButton account = new JButton(img);
+        account.setBorderPainted(false);
+        buttonPanel.add(account);
 
-        information.addActionListener(event -> {
+        account.addActionListener(event -> {
             contentPanel.removeAll();
-          //  contentPanel.add(new UserPanel(viewController));
+            contentPanel.add(new UserPanel(new UserPanelController(userRepository)));
             contentPanel.setVisible(false);
             contentPanel.setVisible(true);
         });

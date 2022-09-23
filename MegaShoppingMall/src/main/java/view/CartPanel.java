@@ -89,10 +89,8 @@ public class CartPanel extends JPanel {
                 .map(price -> Integer.parseInt(price))
                 .reduce(0, (a, b) -> a + b);
 
-        int count = cartItems.size() - 1;
-        
         JPanel cartDetail = new JPanel();
-        JLabel totalCount = new JLabel("총 수량: " + count + "개");
+        JLabel totalCount = new JLabel("총 수량: " + cartItems.size() + "개");
         JLabel totalAmount = new JLabel(" 합계: " + sum + "원");
 
         cartDetail.add(totalCount);

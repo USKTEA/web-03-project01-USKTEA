@@ -2,6 +2,7 @@ package infrastructure;
 
 import models.Cart;
 import models.CartItem;
+import models.Mall;
 import models.Order;
 import models.Product;
 import models.User;
@@ -53,7 +54,8 @@ public class Infrastructure {
         scanner = new Scanner(file);
 
         while (scanner.hasNextLine()) {
-            String[] information = scanner.nextLine().split(",");;
+            String[] information = scanner.nextLine().split(",");
+            ;
 
             if (information[0].equals(id)) {
                 information[2] = Integer.toString(balance);
@@ -112,7 +114,8 @@ public class Infrastructure {
         scanner = new Scanner(file);
 
         while (scanner.hasNextLine()) {
-            String[] information = scanner.nextLine().split(",");;
+            String[] information = scanner.nextLine().split(",");
+            ;
             String id = Long.toString(order.id());
 
             if (information[0].equals(id)) {
@@ -132,7 +135,8 @@ public class Infrastructure {
         scanner = new Scanner(file);
 
         while (scanner.hasNextLine()) {
-            String[] information = scanner.nextLine().split(",");;
+            String[] information = scanner.nextLine().split(",");
+            ;
             String id = Long.toString(order.id());
 
             if (information[0].equals(id)) {
@@ -190,7 +194,8 @@ public class Infrastructure {
         scanner = new Scanner(file);
 
         while (scanner.hasNextLine()) {
-            String[] information = scanner.nextLine().split(",");;
+            String[] information = scanner.nextLine().split(",");
+            ;
             String id = information[0];
 
             if (id.equals(Long.toString(cartItem.id()))) {
@@ -216,5 +221,28 @@ public class Infrastructure {
 
         fileWriter.write(id + "," + userId + "," + productName + "," + productPrice + "," + delivered + "\n");
         fileWriter.close();
+    }
+
+    public Mall mallProducts() throws FileNotFoundException {
+        List<Product> products = new ArrayList<>();
+        scanner = new Scanner(file);
+
+        while (scanner.hasNextLine()) {
+            String text = scanner.nextLine();
+
+            if (text.equals("")) {
+                continue;
+            }
+
+            String[] words = text.split(",");
+
+            String name = words[0];
+            String price = words[1];
+            String imagePath = words[2];
+
+            products.add(new Product(name, price, imagePath));
+        }
+
+        return new Mall(products);
     }
 }

@@ -16,4 +16,8 @@ public class Session {
 
         return Optional.of(sessionUser);
     }
+
+    public void logOut() {
+        this.sessionUser = null;
+    }
 }

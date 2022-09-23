@@ -5,6 +5,7 @@ import java.util.Objects;
 public class Product {
     private String name;
     private int price;
+    private String imagePath;
 
     public Product(String name, int price) {
         this.name = name;
@@ -12,6 +13,12 @@ public class Product {
     }
 
     public Product() {}
+
+    public Product(String name, String price, String imagePath) {
+        this.name = name;
+        this.price = Integer.parseInt(price);
+        this.imagePath = imagePath;
+    }
 
     @Override
     public int hashCode() {
@@ -31,5 +38,9 @@ public class Product {
 
     public String price() {
         return Integer.toString(price);
+    }
+
+    public String image() {
+        return imagePath;
     }
 }

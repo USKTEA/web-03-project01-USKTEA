@@ -4,6 +4,7 @@ import controller.Provider;
 import infrastructure.Infrastructure;
 import models.CartItem;
 import models.Order;
+import models.User;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;

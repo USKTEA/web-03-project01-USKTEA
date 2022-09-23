@@ -1,63 +1,54 @@
 package view;
 
 import controller.MallController;
-import models.Mall;
-import models.CartItem;
+import controller.MallPanelController;
 import models.Order;
 import models.Product;
 import models.User;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 import java.awt.BorderLayout;
-import java.awt.Button;
+import java.awt.Dimension;
 import java.awt.Frame;
 import java.awt.GridLayout;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
-public class MallPanel extends JPanel { // TODO session
-    private Mall mall;
-    private MallController mallController;
-    private List<Product> products = new ArrayList<>();
+public class MallPanel extends JPanel {
+    private MallPanelController mallPanelController;
+    private MallController mallcontroller;
 
     private JPanel header;
 
-    public MallPanel(MallController mallController) {
-        this.mallController = mallController;
-        this.mall = new Mall();
+    public MallPanel(MallPanelController mallPanelController, MallController mallcontroller) throws FileNotFoundException {
+        this.mallPanelController = mallPanelController;
+        this.mallcontroller = mallcontroller;
 
-        addProducts();
         initMallPanel();
     }
 
-    private void addProducts() { // 임시데이터
-        for (int i = 0; i < 12; i += 1) {
-            products.add(new Product("상품", 100));
-        }
-
-        mall.set(products);
-    }
-
-    private void initMallPanel() {
+    private void initMallPanel() throws FileNotFoundException {
         this.setLayout(new BorderLayout());
+        this.setOpaque(false);
 
         addHeader();
-        addCartItemPanel();
+        addProductPanel();
     }
 
     private void addHeader() {
-        String[] userInformation = mallController.userInformation();
+        String[] userInformation = mallPanelController.userInformation();
 
         header = new JPanel();
+        header.setOpaque(false);
         header.setLayout(new GridLayout(0, 3));
         header.add(new JLabel("ID : " + userInformation[0]));
         header.add(new JLabel("보유 금액 : " + userInformation[1]));
@@ -67,22 +58,25 @@ public class MallPanel extends JPanel { // TODO session
         this.add(header, BorderLayout.NORTH);
     }
 
-    private void addCartItemPanel() {
-        JPanel CartItemPanel = new JPanel();
-        CartItemPanel.setLayout(new GridLayout(0, 2));
+    private void addProductPanel() throws FileNotFoundException {
+        JPanel productPanel = new JPanel();
+        productPanel.setLayout(new GridLayout(0, 2));
 
-        this.add(CartItemPanel, BorderLayout.CENTER);
 
-        for (Product product : mall.get()) {
+        for (Product product : mallcontroller.products()) {
             JPanel panel = new JPanel();
-            Button name = new Button(product.name() + "사진");
+
+            ImageIcon img = new ImageIcon(product.image());
+            JButton image = new JButton(img);
+
             JLabel price = new JLabel("가격: " + product.price() + " 원");
 
             JPanel buttonPanel = new JPanel(new GridLayout(0, 1));
             JButton toCart = new JButton("장바구니");
+
             toCart.addActionListener(event -> {
                 try {
-                    mallController.toCart(product);
+                    mallPanelController.toCart(product);
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
@@ -90,14 +84,24 @@ public class MallPanel extends JPanel { // TODO session
 
             addOrderButton(product, buttonPanel);
 
-            panel.add(name);
+            panel.add(image);
             panel.add(price);
             panel.add(buttonPanel);
 
             buttonPanel.add(toCart);
 
-            CartItemPanel.add(panel);
+            productPanel.add(panel);
+
+            addScrollPane(productPanel);
         }
+    }
+
+    private void addScrollPane(JPanel productPanel) {
+        JScrollPane scrollPane = new JScrollPane(productPanel);
+        scrollPane.setPreferredSize(new Dimension(1000 , 600));
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+
+        this.add(scrollPane, BorderLayout.CENTER);
     }
 
     private void addOrderButton(Product product, JPanel buttonPanel) {
@@ -119,7 +123,7 @@ public class MallPanel extends JPanel { // TODO session
     }
 
     private boolean isGuest() {
-        Optional<User> user = mallController.getSession();
+        Optional<User> user = mallPanelController.getSession();
 
         if (user.isEmpty()) {
             final JDialog frame = new JDialog(new Frame(), "Error", true);
@@ -138,7 +142,7 @@ public class MallPanel extends JPanel { // TODO session
     }
 
     private void purchase(Product product) throws IOException {
-        Optional<Order> order = mallController.purchase(product);
+        Optional<Order> order = mallPanelController.purchase(product);
 
         if (order.isEmpty()) {
             final JDialog frame = new JDialog(new Frame(), "Error", true);
@@ -160,7 +164,7 @@ public class MallPanel extends JPanel { // TODO session
     private void updateHeader() {
         header.removeAll();
 
-        String[] userInformation = mallController.userInformation();
+        String[] userInformation = mallPanelController.userInformation();
 
         header.add(new JLabel("ID : " + userInformation[0]));
         header.add(new JLabel("보유 금액 : " + userInformation[1]));
