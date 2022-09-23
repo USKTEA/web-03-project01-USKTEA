@@ -34,12 +34,14 @@ java -cp build/classes/java/main ClassName
 **Run**
 ````
 ./gradlew run
-````sa
+````
 **Run test**
 ````
 ./gradlew test
 ````
+
 ## 기술 스택 
+
 * Java 
 * SWing
 * Gradle
