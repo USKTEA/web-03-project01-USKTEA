@@ -1,18 +1,18 @@
 package repository;
 
-import infrastructure.Infrastructure;
+import infrastructure.FileManager;
 import models.Mall;
 
 import java.io.FileNotFoundException;
 
 public class MallRepository {
-    Infrastructure infrastructure;
+    FileManager fileManager;
 
     public MallRepository() {
-        this.infrastructure = new Infrastructure("mall.csv");
+        this.fileManager = new FileManager("mall.csv");
     }
 
     public Mall products() throws FileNotFoundException {
-        return infrastructure.mallProducts();
+        return fileManager.mallProducts();
     }
 }

@@ -16,7 +16,7 @@ class AuthServiceTest {
     private final String VALID_PASSWORD = Constants.VALID_PASSWORD;
 
     @Test
-    void noAccountFound() throws IOException {
+    void accountNotFound() throws IOException {
         AuthService authService = new AuthService();
         Optional<User> optionalAccount = authService.findBy(new String[]{INVALID_ID, INVALID_PASSWORD});
 
@@ -24,7 +24,7 @@ class AuthServiceTest {
     }
 
     @Test
-    void accountFound() throws IOException {
+    void accountFounded() throws IOException {
         AuthService authService = new AuthService();
 
         Optional<User> optionalAccount = authService.findBy(new String[]{VALID_ID, VALID_PASSWORD});

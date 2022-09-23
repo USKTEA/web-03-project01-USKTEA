@@ -1,23 +1,27 @@
 package view;
 
+import controller.GameController;
 import controller.MallController;
 import controller.MallPanelController;
 import models.Order;
 import models.Product;
 import models.User;
 
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Frame;
 import java.awt.GridLayout;
 
+import java.awt.TextArea;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
@@ -26,8 +30,12 @@ import java.util.Optional;
 public class MallPanel extends JPanel {
     private MallPanelController mallPanelController;
     private MallController mallcontroller;
+    private GameController gameController;
 
     private JPanel header;
+    private JPanel contentPanel;
+    private JPanel gamePanel;
+    private JTextField submitField;
 
     public MallPanel(MallPanelController mallPanelController, MallController mallcontroller) throws FileNotFoundException {
         this.mallPanelController = mallPanelController;
@@ -41,7 +49,29 @@ public class MallPanel extends JPanel {
         this.setOpaque(false);
 
         addHeader();
+        addContentPanel();
         addProductPanel();
+
+
+        if (mallPanelController.getSession().isPresent()) {
+            initPopUp();
+            addGamePanel();
+        }
+    }
+
+    private void initPopUp() {
+        final JDialog frame = new JDialog(new Frame(), "Error", true);
+
+        JPanel information = new JPanel();
+        TextArea textArea = new TextArea();
+        textArea.append("화면 하단에 있는 미니게임(과제)을 작성하면 포인트를 획득할 수 있습니다" +
+                "\n" + "획득한 포인트로 여러 가지 요청해봅시다.");
+        information.add(textArea);
+
+        frame.getContentPane().add(information);
+        frame.setLocationRelativeTo(null);
+        frame.pack();
+        frame.setVisible(true);
     }
 
     private void addHeader() {
@@ -51,17 +81,23 @@ public class MallPanel extends JPanel {
         header.setOpaque(false);
         header.setLayout(new GridLayout(0, 3));
         header.add(new JLabel("ID : " + userInformation[0]));
-        header.add(new JLabel("보유 금액 : " + userInformation[1]));
+        header.add(new JLabel("보유 포인트 : " + userInformation[1]));
         header.add(new JLabel("회원 등급 : " + userInformation[2]));
         header.setBorder(new EmptyBorder(10, 10 ,10 ,10));
 
         this.add(header, BorderLayout.NORTH);
     }
 
+    private void addContentPanel() {
+        contentPanel = new JPanel(new GridLayout(0, 1));
+        contentPanel.setOpaque(false);
+
+        this.add(contentPanel, BorderLayout.CENTER);
+    }
+
     private void addProductPanel() throws FileNotFoundException {
         JPanel productPanel = new JPanel();
         productPanel.setLayout(new GridLayout(0, 2));
-
 
         for (Product product : mallcontroller.products()) {
             JPanel panel = new JPanel();
@@ -69,12 +105,21 @@ public class MallPanel extends JPanel {
             ImageIcon img = new ImageIcon(product.image());
             JButton image = new JButton(img);
 
-            JLabel price = new JLabel("가격: " + product.price() + " 원");
+            JPanel nameAndPrice = new JPanel(new GridLayout(0, 1));
+            JLabel name = new JLabel(product.name());
+            JLabel price = new JLabel("가격: " + product.price() + "p");
+
+            nameAndPrice.add(name);
+            nameAndPrice.add(price);
 
             JPanel buttonPanel = new JPanel(new GridLayout(0, 1));
-            JButton toCart = new JButton("장바구니");
+            JButton toCart = new JButton("요청리스트에 추가");
 
             toCart.addActionListener(event -> {
+                if (isGuest()) {
+                    return;
+                }
+
                 try {
                     mallPanelController.toCart(product);
                 } catch (IOException e) {
@@ -85,15 +130,15 @@ public class MallPanel extends JPanel {
             addOrderButton(product, buttonPanel);
 
             panel.add(image);
-            panel.add(price);
+            panel.add(nameAndPrice);
             panel.add(buttonPanel);
 
             buttonPanel.add(toCart);
 
             productPanel.add(panel);
-
-            addScrollPane(productPanel);
         }
+
+        addScrollPane(productPanel);
     }
 
     private void addScrollPane(JPanel productPanel) {
@@ -101,11 +146,57 @@ public class MallPanel extends JPanel {
         scrollPane.setPreferredSize(new Dimension(1000 , 600));
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
 
-        this.add(scrollPane, BorderLayout.CENTER);
+        contentPanel.add(scrollPane);
+        contentPanel.setVisible(false);
+        contentPanel.setVisible(true);
+    }
+
+    private void addGamePanel() {
+        gamePanel = new JPanel();
+        gamePanel.setBorder(BorderFactory.createEmptyBorder(100, 0, 0, 0));
+        gamePanel.setOpaque(false);
+
+        JPanel gameText = new JPanel();
+        gameText.setOpaque(false);
+        gamePanel.add(gameText);
+
+        gameController = new GameController(gameText);
+        gameController.start();
+
+        submitField = new JTextField(10);
+        gamePanel.add(submitField);
+
+        addSubmitButton();
+        contentPanel.add(gamePanel);
+    }
+
+    private void addSubmitButton( ) {
+        JButton submit = new JButton("입력");
+        submit.addActionListener(event -> {
+
+            int reward = gameController.check(submitField.getText());
+            try {
+                mallPanelController.send(reward);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+
+            updateGamePanel();
+            gameController.start();
+            updateHeader();
+        });
+
+        gamePanel.add(submit);
+    }
+
+    private void updateGamePanel() {
+        submitField.setText("");
+        gamePanel.setVisible(false);
+        gamePanel.setVisible(true);
     }
 
     private void addOrderButton(Product product, JPanel buttonPanel) {
-        JButton order = new JButton("주문");
+        JButton order = new JButton("바로 요청");
         order.addActionListener(event -> {
             if (isGuest()) {
                 return;
@@ -119,6 +210,7 @@ public class MallPanel extends JPanel {
                 throw new RuntimeException(e);
             }
         });
+
         buttonPanel.add(order);
     }
 
@@ -167,7 +259,7 @@ public class MallPanel extends JPanel {
         String[] userInformation = mallPanelController.userInformation();
 
         header.add(new JLabel("ID : " + userInformation[0]));
-        header.add(new JLabel("보유 금액 : " + userInformation[1]));
+        header.add(new JLabel("보유 포인트 : " + userInformation[1]));
         header.add(new JLabel("회원 등급 : " + userInformation[2]));
 
         header.setVisible(false);

@@ -31,17 +31,20 @@ public class MainPanel extends JPanel {
     private UserRepository userRepository = new UserRepository();
     private LoginController loginController;
     private UserService userService;
-    private UserPanelController userPanelController;
 
     private JPanel buttonPanel;
     private JPanel contentPanel;
+    private JButton login;
 
     public MainPanel() {
         this.setLayout(new BorderLayout());
 
+        ImageIcon img = new ImageIcon(Constants.LOGIN_IMG);
+        login = new JButton(img);
+
+        initButtonPanel();
         initContentPanel();
         initLoginPanel();
-        initButtonPanel();
     }
 
     private void initContentPanel() {
@@ -56,7 +59,7 @@ public class MainPanel extends JPanel {
         userService = new UserService(userRepository);
         loginController = new LoginController(userService);
 
-        contentPanel.add(new LoginPanel(loginController, userService));
+        contentPanel.add(new LoginPanel(loginController, userService, login, buttonPanel));
     }
 
     private void initButtonPanel() {
@@ -76,8 +79,6 @@ public class MainPanel extends JPanel {
     }
 
     private void addLoginButton() {
-        ImageIcon img = new ImageIcon(Constants.LOGIN_IMG);
-        JButton login = new JButton(img);
         login.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 60));
         login.setBorderPainted(false);
         buttonPanel.add(login);
@@ -85,13 +86,22 @@ public class MainPanel extends JPanel {
         login.addActionListener(event -> {
             Optional<User> session = userRepository.getSession();
 
-            if (session.isEmpty()) {
-                contentPanel.removeAll();
-                contentPanel.add(new LoginPanel(loginController, userService));
-                contentPanel.setVisible(false);
-                contentPanel.setVisible(true);
+            if (session.isPresent()) {
+                userService.setSession(null);
+                ImageIcon imageIcon = new ImageIcon(Constants.LOGIN_IMG);
+                login.setIcon(imageIcon);
             }
+
+            toLoginPage();
         });
+    }
+
+    private void toLoginPage() {
+        contentPanel.removeAll();
+        contentPanel.add(new LoginPanel(loginController, userService, login, buttonPanel));
+
+        contentPanel.setVisible(false);
+        contentPanel.setVisible(true);
     }
 
     private void addShoppingButton() {

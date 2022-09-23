@@ -25,7 +25,7 @@ public class CartService {
         cartRepository.add(product, user);
     }
 
-    public void delete(CartItem cartItem, User user) throws IOException {
-        cartRepository.delete(cartItem, user);
+    public void delete(CartItem cartItem) throws IOException {
+        cartRepository.delete(cartItem);
     }
 }

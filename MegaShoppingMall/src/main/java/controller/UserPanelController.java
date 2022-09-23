@@ -8,8 +8,4 @@ public class UserPanelController {
     public UserPanelController(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
-
-    public void logOut() {
-        userRepository.logOut();
-    }
 }

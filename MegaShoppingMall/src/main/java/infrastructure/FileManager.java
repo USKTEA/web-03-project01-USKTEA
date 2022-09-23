@@ -16,11 +16,11 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
 
-public class Infrastructure {
+public class FileManager {
     private File file;
     private Scanner scanner;
 
-    public Infrastructure(String filePath) {
+    public FileManager(String filePath) {
         this.file = new File(filePath);
     }
 
@@ -55,7 +55,6 @@ public class Infrastructure {
 
         while (scanner.hasNextLine()) {
             String[] information = scanner.nextLine().split(",");
-            ;
 
             if (information[0].equals(id)) {
                 information[2] = Integer.toString(balance);
@@ -189,7 +188,7 @@ public class Infrastructure {
         fileWriter.close();
     }
 
-    public void deleteItemFromCart(CartItem cartItem, User user) throws IOException {
+    public void deleteItemFromCart(CartItem cartItem) throws IOException {
         StringBuffer stringBuffer = new StringBuffer();
         scanner = new Scanner(file);
 

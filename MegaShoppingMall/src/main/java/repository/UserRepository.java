@@ -1,6 +1,6 @@
 package repository;
 
-import infrastructure.Infrastructure;
+import infrastructure.FileManager;
 import models.Session;
 import models.User;
 
@@ -9,19 +9,19 @@ import java.util.Optional;
 import java.io.IOException;
 
 public class UserRepository {
-    private Infrastructure infrastructure;
+    private FileManager fileManager;
     private Session session = new Session();
 
     public UserRepository() {
-        infrastructure = new Infrastructure("accounts.csv");
+        fileManager = new FileManager("accounts.csv");
     }
 
     public Optional<User> getAccount(String[] data) throws IOException {
-        return infrastructure.findAccount(data);
+        return fileManager.findAccount(data);
     }
 
     public void modifyMoney(String id, int balance) throws IOException {
-        infrastructure.modifyMoney(id, balance);
+        fileManager.modifyMoney(id, balance);
     }
 
     public void setSession(User user) {
@@ -30,9 +30,5 @@ public class UserRepository {
 
     public Optional<User> getSession() {
         return session.getUser();
-    }
-
-    public void logOut() {
-        session.logOut();
     }
 }

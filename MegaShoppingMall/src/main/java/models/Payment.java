@@ -35,7 +35,7 @@ public class Payment {
 
         receivePayment(user, order.get());
         recordOrder(order.get());
-        deleteCartItem(cartItem, user);
+        deleteCartItem(cartItem);
 
         return order;
     }
@@ -63,14 +63,14 @@ public class Payment {
         recordOrder(order.get());
 
         for (CartItem item: cartItems) {
-            deleteCartItem(item, user);
+            deleteCartItem(item);
         }
 
         return order;
     }
 
-    private void deleteCartItem(CartItem cartItem, User user) throws IOException {
-        new CartService().delete(cartItem, user);
+    private void deleteCartItem(CartItem cartItem) throws IOException {
+        new CartService().delete(cartItem);
     }
 
     public void receivePayment(User user, Order order) throws IOException {

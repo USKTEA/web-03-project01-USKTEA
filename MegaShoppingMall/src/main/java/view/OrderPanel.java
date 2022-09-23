@@ -40,7 +40,7 @@ public class OrderPanel extends JPanel implements Observer {
 
     private void addHeader() {
         JPanel header = new JPanel();
-        JLabel label = new JLabel("내 주문");
+        JLabel label = new JLabel("내 요청");
         header.add(label);
         label.setBorder(new EmptyBorder(0, 30, 0, 30));
         label.setHorizontalAlignment(JLabel.CENTER);
@@ -49,14 +49,14 @@ public class OrderPanel extends JPanel implements Observer {
     }
 
     @Override
-    public void updateDisplay(List<Order> orderList) {
+    public void updateDisplay(List<Order> orders) {
         this.removeAll();
 
         addHeader();
         JPanel recordPanel = new JPanel(new GridLayout(0, 1));
         recordPanel.setOpaque(false);
 
-        for (Order order : orderList) {
+        for (Order order : orders) {
             if (order.delivered() == true) {
                 continue;
             }
@@ -79,10 +79,10 @@ public class OrderPanel extends JPanel implements Observer {
         record.setOpaque(false);
 
         orderInformation = new JPanel(new GridLayout(0, 1));
-        orderInformation.add(new JLabel("주문 날짜: " + timeInFormat));
+        orderInformation.add(new JLabel("요청 날짜: " + timeInFormat));
 
         CartItemInformation = new JPanel();
-        CartItemInformation.add(new JLabel("상품명: " + order.productName()));
+        CartItemInformation.add(new JLabel("요청 품목: " + order.productName()));
         CartItemInformation.add(new JLabel(" 가격: " + order.price()));
 
         orderInformation.add(CartItemInformation);
@@ -100,7 +100,7 @@ public class OrderPanel extends JPanel implements Observer {
     }
 
     private void addCancelButton(Order order) {
-        JButton cancel = new JButton("주문 취소");
+        JButton cancel = new JButton("요청 취소");
         cancel.addActionListener(event -> {
             try {
                 orderPanelController.deleteOrder(order);
@@ -113,7 +113,7 @@ public class OrderPanel extends JPanel implements Observer {
     }
 
     private void addReceivedButton(Order order) {
-        JButton received = new JButton("주문 수령");
+        JButton received = new JButton("요청 수령");
         received.addActionListener(event -> {
             try {
                 orderPanelController.setDelivered(order);

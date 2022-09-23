@@ -7,18 +7,18 @@ public class Product {
     private int price;
     private String imagePath;
 
+    public Product(String name, String price, String imagePath) {
+        this.name = name;
+        this.price = Integer.parseInt(price);
+        this.imagePath = imagePath;
+    }
+
     public Product(String name, int price) {
         this.name = name;
         this.price = price;
     }
 
     public Product() {}
-
-    public Product(String name, String price, String imagePath) {
-        this.name = name;
-        this.price = Integer.parseInt(price);
-        this.imagePath = imagePath;
-    }
 
     @Override
     public int hashCode() {

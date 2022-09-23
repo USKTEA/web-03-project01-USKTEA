@@ -56,6 +56,10 @@ public class User {
         balance += order.amount();
     }
 
+    public void getReward(int reward) {
+        this.balance += reward;
+    }
+
     public int balance() {
         return balance;
     }
