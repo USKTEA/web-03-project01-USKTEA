@@ -23,6 +23,7 @@ https://user-images.githubusercontent.com/91834666/191998095-9505349f-3c6a-4c3f-
 
 ## 프로젝트 상세 정보 
 [📱스크린캡처](https://github.com/1mptera/web-03-project01-USKTEA/wiki/%EB%A9%94%EA%B0%80%EB%AA%B0-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%ED%99%94%EB%A9%B4)
+[📝다이어그램](https://github.com/1mptera/web-03-project01-USKTEA/issues/2)
 
 ## 프로젝트 실행 명령어 
 **Complie**
