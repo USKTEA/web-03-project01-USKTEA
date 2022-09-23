@@ -84,7 +84,7 @@ public class OrderPanel extends JPanel implements Observer {
 
         CartItemInformation = new JPanel();
         CartItemInformation.add(new JLabel("상품명: " + order.productName()));
-        CartItemInformation.add(new JLabel("상품 가격: " + order.price()));
+        CartItemInformation.add(new JLabel(" 가격: " + order.price()));
 
         orderInformation.add(CartItemInformation);
         record.add(orderInformation, BorderLayout.CENTER);

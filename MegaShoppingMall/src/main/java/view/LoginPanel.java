@@ -1,6 +1,7 @@
 package view;
 
 import controller.MallController;
+import controller.MallPanelController;
 import service.AuthService;
 import models.User;
 import controller.LoginController;
@@ -31,6 +32,7 @@ public class LoginPanel extends JPanel { //TODO session 살아있으면 렌더�
     public LoginPanel(LoginController loginController, UserService userService) {
         this.loginController = loginController;
         this.userService = userService;
+
         this.setLayout(new BorderLayout());
 
         initLoginPanel();
@@ -97,9 +99,10 @@ public class LoginPanel extends JPanel { //TODO session 살아있으면 렌더�
         form.add(submit);
     }
 
-    private void showMallPanel() {
-        MallController mallController = new MallController(userService);
-        MallPanel mallPanel = new MallPanel(mallController);
+    private void showMallPanel() throws FileNotFoundException {
+        MallPanelController mallPanelController = new MallPanelController(userService);
+        MallController mallController = new MallController();
+        MallPanel mallPanel = new MallPanel(mallPanelController, mallController);
 
         this.removeAll();
         this.add(mallPanel);

@@ -2,6 +2,7 @@ package service;
 
 import models.CartItem;
 import models.Order;
+import models.User;
 import repository.OrderRepository;
 
 import java.util.List;
@@ -22,7 +23,7 @@ public class OrderService {
         orderRepository.record(order);
     }
 
-    public List<Order> getOrderList() throws FileNotFoundException {
+    public List<Order> getOrders() throws FileNotFoundException {
         return orderRepository.getOrders();
     }
 
@@ -35,6 +36,7 @@ public class OrderService {
     }
 
     public void order(CartItem cartItem) throws IOException {
+        System.out.println(1);
         new OrderRepository().add(cartItem);
     }
 }

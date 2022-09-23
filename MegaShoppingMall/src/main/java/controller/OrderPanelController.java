@@ -27,7 +27,7 @@ public class OrderPanelController {
     }
 
     public List<Order> getOrderList() throws FileNotFoundException {
-        return orderService.getOrderList();
+        return orderService.getOrders();
     }
 
     public void setDelivered(Order order) throws IOException {

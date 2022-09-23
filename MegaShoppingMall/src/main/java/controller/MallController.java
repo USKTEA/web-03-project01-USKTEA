@@ -1,51 +1,15 @@
 package controller;
 
-import models.Order;
 import models.Product;
-import models.User;
-import service.PaymentService;
-import service.UserService;
+import service.MallService;
 
-import java.util.Optional;
-import java.io.IOException;
+import java.io.FileNotFoundException;
+import java.util.List;
 
 public class MallController {
-    private UserService userService;
-    private Optional<User> session;
-    private User user;
+    public MallController() {}
 
-    public MallController(UserService userService) {
-        this.userService = userService;
-        this.session = userService.getSession();
-    }
-
-    public String[] userInformation() {
-        if (session.isEmpty()) {
-            return new String[] {"Guest", "-", "방문 고객"};
-        }
-
-        return session.get().information();
-    }
-
-    public Optional<Order> purchase(Product product) throws IOException {
-        user = session.get();
-
-        Optional<Order> order = new PaymentService().purchase(user, product);
-
-        if (order.isEmpty()) {
-            return Optional.empty();
-        }
-
-        return order;
-    }
-
-    public Optional<User> getSession() {
-        return session;
-    }
-
-    public void toCart(Product product) throws IOException {
-        user = session.get();
-
-        new CartController(user).add(product);
+    public List<Product> products() throws FileNotFoundException {
+        return new MallService().products();
     }
 }
