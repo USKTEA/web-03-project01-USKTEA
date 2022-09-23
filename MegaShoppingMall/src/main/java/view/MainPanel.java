@@ -1,12 +1,12 @@
 package view;
 
 import constants.Constants;
+import controller.CartController;
+import controller.LoginController;
 import controller.MallController;
 import controller.MallPanelController;
-import controller.LoginController;
 import controller.OrderPanelController;
 import controller.Provider;
-import controller.CartController;
 import controller.UserPanelController;
 import models.User;
 import repository.OrderRepository;
@@ -23,10 +23,8 @@ import javax.swing.JPanel;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Frame;
-
-import java.util.Optional;
-
 import java.io.FileNotFoundException;
+import java.util.Optional;
 
 public class MainPanel extends JPanel {
     private Provider provider = new Provider();
@@ -170,14 +168,37 @@ public class MainPanel extends JPanel {
         buttonPanel.add(order);
 
         order.addActionListener(event -> {
-            contentPanel.removeAll();
+            Optional<User> session = userRepository.getSession();
 
+            if (session.isEmpty()) {
+                final JDialog frame = new JDialog(new Frame(), "Error", true);
+
+                JPanel error = new JPanel();
+                error.add(new JLabel("로그인이 필요한 서비스입니다."));
+
+                frame.getContentPane().add(error);
+                frame.setLocationRelativeTo(null);
+                frame.pack();
+                frame.setVisible(true);
+
+                return;
+            }
+
+            contentPanel.removeAll();
             OrderPanel orderPanel = null;
+            OrderService orderService = null;
 
             try {
-                User user = userRepository.getSession().get();
-                OrderService orderService = new OrderService(new OrderRepository(provider));
-                OrderPanelController orderPanelController = new OrderPanelController(orderService, user);
+                orderService = new OrderService(new OrderRepository(provider));
+            } catch (FileNotFoundException e) {
+                throw new RuntimeException(e);
+            }
+
+            User user = session.get();
+
+            OrderPanelController orderPanelController = new OrderPanelController(orderService, user);
+
+            try {
                 orderPanel = new OrderPanel(orderPanelController);
             } catch (FileNotFoundException e) {
                 throw new RuntimeException(e);
