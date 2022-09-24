@@ -1,11 +1,9 @@
 package repository;
 
 import infrastructure.FileManager;
-import models.Service;
 import models.Session;
 import models.User;
 
-import java.util.List;
 import java.util.Optional;
 
 import java.io.IOException;
