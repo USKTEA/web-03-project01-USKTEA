@@ -6,10 +6,10 @@ public class CartItem {
     private String price;
     private String userId;
 
-    public CartItem(long id, Product product) {
+    public CartItem(long id, Service service) {
         this.id = id;
-        this.name = product.name();
-        this.price = product.price();
+        this.name = service.name();
+        this.price = service.price();
     }
 
     public CartItem(String id, String name, String price, String userId) {

@@ -1,7 +1,7 @@
 package controller;
 
 import models.Order;
-import models.Product;
+import models.Service;
 import models.User;
 import service.PaymentService;
 import service.UserService;
@@ -27,10 +27,10 @@ public class MallPanelController {
         return session.get().information();
     }
 
-    public Optional<Order> purchase(Product product) throws IOException {
+    public Optional<Order> purchase(Service service) throws IOException {
         user = session.get();
 
-        Optional<Order> order = new PaymentService().purchase(user, product);
+        Optional<Order> order = new PaymentService().purchase(user, service);
 
         if (order.isEmpty()) {
             return Optional.empty();
@@ -43,10 +43,10 @@ public class MallPanelController {
         return session;
     }
 
-    public void toCart(Product product) throws IOException {
+    public void toCart(Service service) throws IOException {
         user = session.get();
 
-        new CartController(user).add(product);
+        new CartController(user).add(service);
     }
 
     public void send(int reward) throws IOException {

@@ -230,7 +230,11 @@ public class MainPanel extends JPanel {
 
         account.addActionListener(event -> {
             contentPanel.removeAll();
-            contentPanel.add(new UserPanel(new UserPanelController(userRepository)));
+            try {
+                contentPanel.add(new UserPanel(new UserPanelController(userService)));
+            } catch (FileNotFoundException e) {
+                throw new RuntimeException(e);
+            }
             contentPanel.setVisible(false);
             contentPanel.setVisible(true);
         });

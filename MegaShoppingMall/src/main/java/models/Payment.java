@@ -11,12 +11,12 @@ import java.util.Optional;
 import java.io.IOException;
 
 public class Payment {
-    public Optional<Order> purchase(Product product, User user) throws IOException {
-        if (Integer.parseInt(product.price()) > user.balance()) {
+    public Optional<Order> purchase(Service service, User user) throws IOException {
+        if (Integer.parseInt(service.price()) > user.balance()) {
             return Optional.empty();
         }
 
-        Optional<Order> order = Optional.of(new Order(product, user.id()));
+        Optional<Order> order = Optional.of(new Order(service, user.id()));
 
         receivePayment(user, order.get());
         recordOrder(order.get());
@@ -29,9 +29,9 @@ public class Payment {
             return Optional.empty();
         }
 
-        Product product = new Product(cartItem.name(), Integer.parseInt(cartItem.price()));
+        Service service = new Service(cartItem.name(), Integer.parseInt(cartItem.price()));
 
-        Optional<Order> order = Optional.of(new Order(product, user.id()));
+        Optional<Order> order = Optional.of(new Order(service, user.id()));
 
         receivePayment(user, order.get());
         recordOrder(order.get());
@@ -56,8 +56,8 @@ public class Payment {
 
         int totalCount = cartItems.size();
 
-        Product product = new Product(cartItem.name() + " 외 " + totalCount + "개", sum);
-        Optional<Order> order = Optional.of(new Order(product, user.id()));
+        Service service = new Service(cartItem.name() + " 외 " + totalCount + "개", sum);
+        Optional<Order> order = Optional.of(new Order(service, user.id()));
 
         receivePayment(user, order.get());
         recordOrder(order.get());

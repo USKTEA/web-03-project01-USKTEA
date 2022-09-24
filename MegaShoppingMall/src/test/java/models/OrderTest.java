@@ -8,7 +8,7 @@ class OrderTest {
 
     @Test
     void string() {
-        Order order = new Order(new Product("테스트상품", 10));
+        Order order = new Order(new Service("테스트상품", 10));
 
         assertEquals("상품명: 테스트상품, 금액: 10원", order.toString());
     }
@@ -17,8 +17,8 @@ class OrderTest {
     void equality() {
         long id = 1;
 
-        Order order1 = new Order(id, new Product());
-        Order order2 = new Order(id, new Product());
+        Order order1 = new Order(id, new Service());
+        Order order2 = new Order(id, new Service());
 
         assertEquals(order1, order2);
     }

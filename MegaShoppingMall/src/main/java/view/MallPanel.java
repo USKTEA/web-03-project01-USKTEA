@@ -4,7 +4,7 @@ import controller.GameController;
 import controller.MallController;
 import controller.MallPanelController;
 import models.Order;
-import models.Product;
+import models.Service;
 import models.User;
 
 import javax.swing.BorderFactory;
@@ -18,10 +18,10 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Frame;
 import java.awt.GridLayout;
 
-import java.awt.TextArea;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
@@ -51,7 +51,10 @@ public class MallPanel extends JPanel {
         addHeader();
         addContentPanel();
         addProductPanel();
-        addGamePanel();
+
+        if (mallPanelController.getSession().isPresent()) {
+            addGamePanel();
+        }
     }
 
     private void addHeader() {
@@ -79,21 +82,21 @@ public class MallPanel extends JPanel {
         JPanel productPanel = new JPanel();
         productPanel.setLayout(new GridLayout(0, 2));
 
-        for (Product product : mallcontroller.products()) {
+        for (Service service : mallcontroller.products()) {
             JPanel panel = new JPanel();
 
-            ImageIcon img = new ImageIcon(product.image());
+            ImageIcon img = new ImageIcon(service.image());
             JButton image = new JButton(img);
 
             JPanel nameAndPrice = new JPanel(new GridLayout(0, 1));
-            JLabel name = new JLabel(product.name());
-            JLabel price = new JLabel("가격: " + product.price() + "p");
+            JLabel name = new JLabel(service.name());
+            JLabel price = new JLabel("가격: " + service.price() + "p");
 
             nameAndPrice.add(name);
             nameAndPrice.add(price);
 
             JPanel buttonPanel = new JPanel(new GridLayout(0, 1));
-            JButton toCart = new JButton("요청리스트에 추가");
+            JButton toCart = new JButton("위시리스트에 추가");
 
             toCart.addActionListener(event -> {
                 if (isGuest()) {
@@ -101,13 +104,13 @@ public class MallPanel extends JPanel {
                 }
 
                 try {
-                    mallPanelController.toCart(product);
+                    mallPanelController.toCart(service);
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
             });
 
-            addOrderButton(product, buttonPanel);
+            addOrderButton(service, buttonPanel);
 
             panel.add(image);
             panel.add(nameAndPrice);
@@ -137,6 +140,15 @@ public class MallPanel extends JPanel {
         gamePanel.setOpaque(false);
 
         JPanel gameText = new JPanel();
+
+        JPanel gameNotice = new JPanel();
+        gameNotice.setOpaque(false);
+
+        JLabel notice = new JLabel("Quiz :");
+        notice.setFont(new Font("NanumGothic", Font.BOLD, 25));
+        gameNotice.add(notice, JLabel.CENTER);
+        gamePanel.add(gameNotice);
+
         gameText.setOpaque(false);
         gamePanel.add(gameText);
 
@@ -175,15 +187,15 @@ public class MallPanel extends JPanel {
         gamePanel.setVisible(true);
     }
 
-    private void addOrderButton(Product product, JPanel buttonPanel) {
-        JButton order = new JButton("바로 요청");
+    private void addOrderButton(Service service, JPanel buttonPanel) {
+        JButton order = new JButton("요청");
         order.addActionListener(event -> {
             if (isGuest()) {
                 return;
             }
 
             try {
-                purchase(product);
+                purchase(service);
             } catch (FileNotFoundException e) {
                 throw new RuntimeException(e);
             } catch (IOException e) {
@@ -213,14 +225,14 @@ public class MallPanel extends JPanel {
         return false;
     }
 
-    private void purchase(Product product) throws IOException {
-        Optional<Order> order = mallPanelController.purchase(product);
+    private void purchase(Service service) throws IOException {
+        Optional<Order> order = mallPanelController.purchase(service);
 
         if (order.isEmpty()) {
             final JDialog frame = new JDialog(new Frame(), "Error", true);
 
             JPanel error = new JPanel();
-            error.add(new JLabel("보유 금액이 부족합니다."));
+            error.add(new JLabel("보유 포인트가 부족합니다."));
 
             frame.getContentPane().add(error);
             frame.setLocationRelativeTo(null);

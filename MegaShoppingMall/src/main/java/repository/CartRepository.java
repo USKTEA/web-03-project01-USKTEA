@@ -3,7 +3,7 @@ package repository;
 import infrastructure.FileManager;
 import models.Cart;
 import models.CartItem;
-import models.Product;
+import models.Service;
 import models.User;
 
 import java.io.FileNotFoundException;
@@ -20,8 +20,8 @@ public class CartRepository {
         return fileManager.getCart(user);
     }
 
-    public void add(Product product, User user) throws IOException {
-        fileManager.addItemToCart(product, user);
+    public void add(Service service, User user) throws IOException {
+        fileManager.addItemToCart(service, user);
     }
 
     public void delete(CartItem cartItem) throws IOException {

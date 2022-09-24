@@ -9,23 +9,23 @@ public class Order {
     private String userId;
     private boolean delivered = false;
 
-    public Order(Product product) {
+    public Order(Service service) {
         this.id = System.currentTimeMillis();
-        this.productName = product.name();
-        this.productPrice = product.price();
+        this.productName = service.name();
+        this.productPrice = service.price();
     }
 
-    public Order(Product product, String userId) {
+    public Order(Service service, String userId) {
         this.id = System.currentTimeMillis();
         this.userId = userId;
-        this.productName = product.name();
-        this.productPrice = product.price();
+        this.productName = service.name();
+        this.productPrice = service.price();
     }
 
-    public Order(long id, Product product) {
+    public Order(long id, Service service) {
         this.id = id;
-        this.productName = product.name();
-        this.productPrice = product.price();
+        this.productName = service.name();
+        this.productPrice = service.price();
     }
 
     public Order(long id, String userId, String productName, String productPrice) {
@@ -41,10 +41,10 @@ public class Order {
         this.productPrice = productPrice;
     }
 
-    public Order(long id, Product product, String userId) {
+    public Order(long id, Service service, String userId) {
         this.id = id;
-        this.productName = product.name();
-        this.productPrice = product.price();
+        this.productName = service.name();
+        this.productPrice = service.price();
         this.userId = userId;
     }
 
