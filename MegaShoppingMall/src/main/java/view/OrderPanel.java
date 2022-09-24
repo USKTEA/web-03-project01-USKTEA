@@ -40,7 +40,7 @@ public class OrderPanel extends JPanel implements Observer {
 
     private void addHeader() {
         JPanel header = new JPanel();
-        JLabel label = new JLabel("내 요청");
+        JLabel label = new JLabel("진행 중인 서비스 목록");
         header.add(label);
         label.setBorder(new EmptyBorder(0, 30, 0, 30));
         label.setHorizontalAlignment(JLabel.CENTER);
@@ -82,8 +82,8 @@ public class OrderPanel extends JPanel implements Observer {
         orderInformation.add(new JLabel("요청 날짜: " + timeInFormat));
 
         CartItemInformation = new JPanel();
-        CartItemInformation.add(new JLabel("요청 품목: " + order.productName()));
-        CartItemInformation.add(new JLabel(" 가격: " + order.price()));
+        CartItemInformation.add(new JLabel("서비스: " + order.productName()));
+        CartItemInformation.add(new JLabel("가격: " + order.price()));
 
         orderInformation.add(CartItemInformation);
         record.add(orderInformation, BorderLayout.CENTER);
@@ -99,21 +99,8 @@ public class OrderPanel extends JPanel implements Observer {
         recordPanel.add(record);
     }
 
-    private void addCancelButton(Order order) {
-        JButton cancel = new JButton("요청 취소");
-        cancel.addActionListener(event -> {
-            try {
-                orderPanelController.deleteOrder(order);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        });
-
-        buttonPanel.add(cancel);
-    }
-
     private void addReceivedButton(Order order) {
-        JButton received = new JButton("요청 수령");
+        JButton received = new JButton("확인");
         received.addActionListener(event -> {
             try {
                 orderPanelController.setDelivered(order);
@@ -123,6 +110,19 @@ public class OrderPanel extends JPanel implements Observer {
         });
 
         buttonPanel.add(received);
+    }
+
+    private void addCancelButton(Order order) {
+        JButton cancel = new JButton("취소");
+        cancel.addActionListener(event -> {
+            try {
+                orderPanelController.deleteOrder(order);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
+
+        buttonPanel.add(cancel);
     }
 
     private void addScrollPane(JPanel recordPanel) {

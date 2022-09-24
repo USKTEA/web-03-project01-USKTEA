@@ -2,6 +2,7 @@ package service;
 
 import models.CartItem;
 import models.Order;
+import models.Service;
 import models.User;
 import repository.OrderRepository;
 
@@ -36,7 +37,10 @@ public class OrderService {
     }
 
     public void order(CartItem cartItem) throws IOException {
-        System.out.println(1);
         new OrderRepository().add(cartItem);
+    }
+
+    public List<Service> myService(User user) throws FileNotFoundException {
+        return new OrderRepository().myService(user);
     }
 }

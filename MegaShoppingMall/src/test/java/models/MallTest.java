@@ -10,10 +10,10 @@ class MallTest {
 
     @Test
     void mallProducts() {
-        List<Product> mock = List.of(
-                new Product(),
-                new Product(),
-                new Product()
+        List<Service> mock = List.of(
+                new Service(),
+                new Service(),
+                new Service()
         );
 
         Mall mall = new Mall(mock);

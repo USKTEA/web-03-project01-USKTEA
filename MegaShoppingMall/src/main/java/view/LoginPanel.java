@@ -16,7 +16,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+import javax.swing.border.EmptyBorder;
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Frame;
 import java.awt.GridLayout;
 
@@ -65,19 +67,23 @@ public class LoginPanel extends JPanel { //TODO session 살아있으면 렌더�
         title.setBorder(BorderFactory.createEmptyBorder(150, 0, 0, 0));
         JLabel label = new JLabel(imageIcon);
         title.add(label);
+
         this.add(title, BorderLayout.NORTH);
     }
 
     private void initForm() {
         form = new JPanel();
+        form.setBackground(new Color(0, 0, 0, 22));
         form.setLayout(new GridLayout(0, 1));
         form.setBorder(BorderFactory.createEmptyBorder(100, 100, 100 ,100));
+
         this.add(form, BorderLayout.CENTER);
     }
 
     private void addPasswordForm() {
         JLabel passwordLabel = new JLabel("비밀번호");
         passwordField = new JPasswordField(10);
+        passwordField.setBorder(new EmptyBorder(0,0,0,0));
         form.add(passwordLabel);
         form.add(passwordField);
     }
@@ -131,9 +137,12 @@ public class LoginPanel extends JPanel { //TODO session 살아있으면 렌더�
         final JDialog frame = new JDialog(new Frame(), "Error", true);
 
         JPanel information = new JPanel();
+
         TextArea textArea = new TextArea();
-        textArea.append("화면 하단에 있는 미니게임(과제)을 작성하면 포인트를 획득할 수 있습니다" +
-                "\n" + "획득한 포인트로 여러 가지 요청해봅시다.");
+        textArea.append("화면 하단에 있는 퀴즈를 맞추면 포인트를 획득할 수 있습니다" +
+                "\n" + "획득한 포인트로 여러 가지 서비스를 요청해보세요!");
+        textArea.setEditable(false);
+
         information.add(textArea);
 
         frame.getContentPane().add(information);

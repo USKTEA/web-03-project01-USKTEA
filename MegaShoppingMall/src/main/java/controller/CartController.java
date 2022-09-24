@@ -3,7 +3,7 @@ package controller;
 import models.Cart;
 import models.CartItem;
 import models.Order;
-import models.Product;
+import models.Service;
 import models.User;
 import service.CartService;
 import service.PaymentService;
@@ -25,8 +25,8 @@ public class CartController {
         return cartService.getCart(user);
     }
 
-    public void add(Product product) throws IOException {
-        cartService.add(product, user);
+    public void add(Service service) throws IOException {
+        cartService.add(service, user);
     }
 
     public void delete(CartItem cartItem) throws IOException {

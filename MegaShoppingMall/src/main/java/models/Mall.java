@@ -3,13 +3,13 @@ package models;
 import java.util.List;
 
 public class Mall {
-    private List<Product> products;
+    private List<Service> services;
 
-    public Mall(List<Product> products) {
-        this.products = products;
+    public Mall(List<Service> services) {
+        this.services = services;
     }
 
-    public List<Product> products() {
-        return products;
+    public List<Service> products() {
+        return services;
     }
 }

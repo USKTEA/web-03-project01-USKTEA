@@ -4,6 +4,8 @@ import controller.Provider;
 import infrastructure.FileManager;
 import models.CartItem;
 import models.Order;
+import models.Service;
+import models.User;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -62,5 +64,9 @@ public class OrderRepository {
 
     public void add(CartItem cartItem) throws IOException {
         fileManager.cartItemToOrder(cartItem);
+    }
+
+    public List<Service> myService(User user) throws FileNotFoundException {
+        return fileManager.getServices(user);
     }
 }

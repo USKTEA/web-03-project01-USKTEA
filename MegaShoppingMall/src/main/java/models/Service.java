@@ -2,23 +2,27 @@ package models;
 
 import java.util.Objects;
 
-public class Product {
+public class Service {
     private String name;
     private int price;
     private String imagePath;
 
-    public Product(String name, String price, String imagePath) {
+    public Service(String name, String price, String imagePath) {
         this.name = name;
         this.price = Integer.parseInt(price);
         this.imagePath = imagePath;
     }
 
-    public Product(String name, int price) {
+    public Service(String name, int price) {
         this.name = name;
         this.price = price;
     }
 
-    public Product() {}
+    public Service() {}
+
+    public Service(String name) {
+        this.name = name;
+    }
 
     @Override
     public int hashCode() {
@@ -27,9 +31,9 @@ public class Product {
 
     @Override
     public boolean equals(Object other) {
-        Product otherProduct = (Product) other;
+        Service otherService = (Service) other;
         
-        return Objects.equals(name, otherProduct.name);
+        return Objects.equals(name, otherService.name);
     }
 
     public String name() {

@@ -40,7 +40,7 @@ public class CartPanel extends JPanel {
     private void addHeader() {
         JPanel header = new JPanel();
 
-        JLabel label = new JLabel("요청 리스트");
+        JLabel label = new JLabel("위시 리스트");
         label.setBorder(new EmptyBorder(0, 30, 0, 30));
         label.setHorizontalAlignment(JLabel.CENTER);
 
@@ -91,7 +91,7 @@ public class CartPanel extends JPanel {
 
         JPanel cartDetail = new JPanel();
         JLabel totalCount = new JLabel("총 수량: " + cartItems.size() + "개");
-        JLabel totalAmount = new JLabel(" 합계: " + sum + "원");
+        JLabel totalAmount = new JLabel(" 합계: " + sum + "p");
 
         cartDetail.add(totalCount);
         cartDetail.add(totalAmount);

@@ -2,7 +2,7 @@ package service;
 
 import models.Cart;
 import models.CartItem;
-import models.Product;
+import models.Service;
 import models.User;
 
 import repository.CartRepository;
@@ -21,8 +21,8 @@ public class CartService {
         return cartRepository.getCart(user);
     }
 
-    public void add(Product product, User user) throws IOException {
-        cartRepository.add(product, user);
+    public void add(Service service, User user) throws IOException {
+        cartRepository.add(service, user);
     }
 
     public void delete(CartItem cartItem) throws IOException {

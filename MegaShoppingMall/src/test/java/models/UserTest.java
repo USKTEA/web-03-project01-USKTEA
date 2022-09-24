@@ -45,8 +45,8 @@ class UserTest {
         int price = 10;
 
         User user = new User(balance);
-        Product product = new Product("테스트상품", price);
-        user.pay(new Order(product));
+        Service service = new Service("테스트상품", price);
+        user.pay(new Order(service));
 
         assertEquals(100 - 10, user.balance());
     }
@@ -57,8 +57,8 @@ class UserTest {
         int price = 10;
 
         User user = new User(balance);
-        Product product = new Product("테스트상품", price);
-        user.refund(new Order(product));
+        Service service = new Service("테스트상품", price);
+        user.refund(new Order(service));
 
         assertEquals(100 + 10, user.balance());
     }
