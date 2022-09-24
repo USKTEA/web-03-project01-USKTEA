@@ -64,6 +64,6 @@ java -cp build/classes/java/main ClassName
 ## 기술 스택 
 
 * Java 
-* SWing
+* Swing
 * Gradle
 * JUnit5
