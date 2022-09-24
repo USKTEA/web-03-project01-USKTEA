@@ -7,6 +7,11 @@
 ## 🎬 데모 영상
 https://user-images.githubusercontent.com/91834666/191998095-9505349f-3c6a-4c3f-b644-dc282c80d75d.mp4
 
+## 🎬 20220924 추가 기능 
+https://user-images.githubusercontent.com/91834666/192090357-e59b6111-800d-4962-b241-dd394ab8f465.mov
+
+
+
 ## ✏ 기능 
 * 로그인 
 * 서비스 조회 
