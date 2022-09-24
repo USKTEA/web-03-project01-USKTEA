@@ -19,13 +19,6 @@ public class OrderPanelController {
         this.user = user;
     }
 
-    public OrderPanelController(OrderService orderService) {
-        this.orderService = orderService;
-    }
-
-    public OrderPanelController() {
-    }
-
     public List<Order> getOrderList() throws FileNotFoundException {
         return orderService.getOrders();
     }

@@ -70,7 +70,6 @@ public class UserPanel extends JPanel {
         servicePanel.setLayout(new GridLayout(0, 3));
 
         for (Service service : userPanelController.myService(user)) {
-            System.out.println(service.name());
             String path = imagePaths.get(service.name());
             ImageIcon imageIcon = new ImageIcon(path);
             JButton userService = new JButton(imageIcon);
